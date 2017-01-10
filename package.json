@@ -49,8 +49,17 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
+    "firebase": "^3.6.4",
+    "rc-slider": "^5.4.3",
     "react": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "react-addons-css-transition-group": "^15.4.1",
+    "react-addons-transition-group": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "react-redux": "^5.0.1",
+    "reactstrap": "^4.0.0-alpha.8",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0"
   },
   "scripts": {
     "start": "node scripts/start.js",

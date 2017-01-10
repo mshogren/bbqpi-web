@@ -1,0 +1,15 @@
+.Fan {
+  display: block;
+  margin: 0 auto;
+  width: 32px;
+  height: 32px;
+}
+
+.Animate {
+  animation: Fan-spin infinite 400ms linear;
+}
+
+@keyframes Fan-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
