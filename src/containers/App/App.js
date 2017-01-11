@@ -2,35 +2,42 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TargetSensor from '../TargetSensor/TargetSensor';
-import { login } from '../../redux/modules/targetSensor';
+import AlarmSensors from '../AlarmSensors/AlarmSensors';
+import { login } from '../../redux/modules/auth';
 
 const mapStateToProps = state => (
-  { loaded: state.targetSensor.loaded }
+  { authenticated: state.auth.authenticated }
 );
+
+const mapDispatchToProps = dispatch => ({
+  handleComponentEvent: () => {
+    dispatch(login());
+  },
+});
 
 class App extends Component {
   componentWillMount() {
-    const { dispatch } = this.props;
-    dispatch(login());
+    const { handleComponentEvent } = this.props;
+    handleComponentEvent();
   }
 
   render() {
-    const { loaded } = this.props;
-    const message = loaded ? 'Loaded' : 'Not loaded';
+    const { authenticated } = this.props;
 
-    return loaded ? (
+    return authenticated ? (
       <div>
         <TargetSensor />
+        <AlarmSensors />
       </div>
     ) : (
-      <div>{message}</div>
+      <div>Logging in</div>
     );
   }
 }
 
 App.propTypes = {
-  dispatch: React.PropTypes.func,
-  loaded: React.PropTypes.bool,
+  authenticated: React.PropTypes.bool,
+  handleComponentEvent: React.PropTypes.func,
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
