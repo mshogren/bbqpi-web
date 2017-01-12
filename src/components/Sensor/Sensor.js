@@ -1,11 +1,12 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import TemperatureSlider from '../TemperatureSlider/TemperatureSlider';
+import Thermometer from '../Thermometer/Thermometer';
+import Close from '../Close/Close';
 
 const Sensor = function Sensor(props) {
   const {
     title,
-    label,
     icon,
     currentTemperature,
     setTemperature,
@@ -26,28 +27,28 @@ const Sensor = function Sensor(props) {
   };
 
   return (
-    <Container>
-      <Row style={{ paddingTop: '0.5em', paddingBottom: '1em' }}>
+    <Container style={{ borderBottom: '1px solid #eeeeee' }}>
+      <Row style={{ paddingTop: '0.5em', paddingBottom: '0.25em' }}>
         <Col xs={10}>
           <h5>{ title }</h5>
         </Col>
-        <Col xs={2}>
-          { icon }
+        <Col xs={1}>
+          <Close />
         </Col>
       </Row>
-      <Row style={{ paddingBottom: '1em' }}>
+      <Row style={{ paddingBottom: '0.5em' }}>
         <Col xs={2}>
-          <p style={{ fontSize: '10px' }}>Current</p>
+          <Thermometer />
         </Col>
-        <Col xs={10}>
+        <Col xs={9}>
           <TemperatureSlider {...currentSliderProps} />
         </Col>
       </Row>
-      <Row style={{ paddingBottom: '1em' }}>
+      <Row style={{ paddingBottom: '0.5em' }}>
         <Col xs={2}>
-          <p style={{ fontSize: '10px' }}>{label}</p>
+          { icon }
         </Col>
-        <Col xs={10}>
+        <Col xs={9}>
           <TemperatureSlider {...targetSliderProps} />
         </Col>
       </Row>
@@ -57,7 +58,6 @@ const Sensor = function Sensor(props) {
 
 Sensor.propTypes = {
   title: React.PropTypes.string,
-  label: React.PropTypes.string,
   icon: React.PropTypes.element,
   currentTemperature: React.PropTypes.number,
   setTemperature: React.PropTypes.number,

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import AlarmSensor from '../AlarmSensor/AlarmSensor';
+import Add from '../../components/Add/Add';
 import { listenForChanges } from '../../redux/modules/alarmSensors';
 
 const mapStateToProps = (state) => {
@@ -22,12 +24,15 @@ class AlarmSensorsComponent extends Component {
 
   render() {
     const sensors = [];
-    this.props.alarmSensors.forEach(() => {
-      sensors.push(<div />);
+    this.props.alarmSensors.forEach((sensor, index) => {
+      sensors.push(<AlarmSensor key={index} channel={sensor.channel} />);
     });
 
     return (
-      <div>{sensors}</div>
+      <div>
+        {sensors}
+        <Add />
+      </div>
     );
   }
 }

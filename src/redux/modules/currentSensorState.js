@@ -1,21 +1,18 @@
 import firebase from 'firebase';
 
-const SET_SENSOR_STATE = 'bbqpi/targetSensor/SET_STATE';
+const SET_SENSOR_STATE = 'bbqpi/currentSensorState/SET_SENSOR_STATE';
 
-const initialState = {
-  loaded: false,
-};
+const initialState = [];
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
 
-  case SET_SENSOR_STATE:
-    return {
-      ...state,
-      loaded: true,
-      currentSensorState: action.payload,
-    };
+  case SET_SENSOR_STATE: {
+    const newState = [...state];
+    newState[action.payload.channel] = action.payload;
 
+    return newState;
+  }
   default:
     return state;
   }
@@ -26,12 +23,12 @@ export const setSensorState = sensorState => ({
   payload: sensorState,
 });
 
-export const listenForChanges = () => (
+export const listenForSensorChanges = channel => (
   (dispatch, getState) => {
     const state = getState();
     firebase.database().ref(`users/${state.auth.userId}/state`)
       .orderByChild('channel')
-      .equalTo(0)
+      .equalTo(channel)
       .limitToLast(1)
       .on('child_added', (snapshot) => {
         dispatch(setSensorState(snapshot.val()));

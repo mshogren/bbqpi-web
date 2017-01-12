@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import auth from './auth';
-import targetSensor from './targetSensor';
+import currentSensorState from './currentSensorState';
 import alarmSensors from './alarmSensors';
 
 export default combineReducers({
   auth,
-  targetSensor,
+  currentSensorState,
   alarmSensors,
 });

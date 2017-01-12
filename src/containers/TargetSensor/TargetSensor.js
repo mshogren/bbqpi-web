@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Sensor from '../../components/Sensor/Sensor';
 import Fan from '../../components/Fan/Fan';
-import { listenForChanges, setTargetTemperature } from '../../redux/modules/targetSensor';
+import { listenForSensorChanges } from '../../redux/modules/currentSensorState';
+import { setTargetTemperature } from '../../redux/dbActions';
 
 const mapStateToProps = (state) => {
-  const { loaded } = state.targetSensor;
-  let sensorProps;
-
-  if (loaded) {
-    const { currentTemperature, targetTemperature, fan } = state.targetSensor.currentSensorState;
-    sensorProps = {
+  if (state.currentSensorState['0']) {
+    const { currentTemperature, targetTemperature, fan } = state.currentSensorState['0'];
+    return {
       title: 'Grill Temperature',
       label: 'Target',
       icon: (<Fan on={fan} />),
@@ -20,12 +18,7 @@ const mapStateToProps = (state) => {
     };
   }
 
-  return loaded ? {
-    loaded,
-    sensorProps,
-  } : {
-    loaded,
-  };
+  return { loading: true };
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -33,7 +26,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setTargetTemperature(value));
   },
   handleComponentEvent: () => {
-    dispatch(listenForChanges());
+    dispatch(listenForSensorChanges(0));
   },
 });
 
@@ -44,24 +37,18 @@ class TargetSensorComponent extends Component {
   }
 
   render() {
-    const sensorProps = {
-      ...this.props.sensorProps,
-      handleChange: this.props.handleChange,
-    };
-
-    return this.props.loaded ? (
-      <Sensor {...sensorProps} />
-    ) : (
+    const { loading } = this.props;
+    return loading ? (
       <div />
+    ) : (
+      <Sensor {...this.props} />
     );
   }
 }
 
 TargetSensorComponent.propTypes = {
-  loaded: React.PropTypes.bool,
-  sensorProps: React.PropTypes.shape({}),
+  loading: React.PropTypes.bool,
   handleComponentEvent: React.PropTypes.func,
-  handleChange: React.PropTypes.func,
 };
 
 const TargetSensor = connect(mapStateToProps, mapDispatchToProps)(TargetSensorComponent);

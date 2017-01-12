@@ -8,12 +8,12 @@ const initialState = [];
 export default function reducer(state = initialState, action) {
   switch (action.type) {
 
-  case ADD_SENSOR:
-    return [
-      ...state,
-      action.payload,
-    ];
+  case ADD_SENSOR: {
+    const newState = [...state];
+    newState[action.payload.channel] = action.payload;
 
+    return newState;
+  }
   default:
     return state;
   }
@@ -42,3 +42,4 @@ export const listenForChanges = () => (
       dispatch(removeSensor(snapshot.val()));
     });
   });
+
