@@ -10,7 +10,6 @@ const mapStateToProps = (state) => {
     const { currentTemperature, targetTemperature, fan } = state.currentSensorState['0'];
     return {
       title: 'Grill Temperature',
-      label: 'Target',
       icon: (<Fan on={fan} />),
       max: 450,
       currentTemperature,

@@ -14,7 +14,7 @@ const Add = function Add(props) {
   const svgStyle = {
     cursor: 'pointer',
     display: 'block',
-    margin: '0 auto',
+    margin: '31 auto',
     width: '64px',
     height: '64px',
   };

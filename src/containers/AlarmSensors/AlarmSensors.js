@@ -23,16 +23,24 @@ class AlarmSensorsComponent extends Component {
   }
 
   render() {
-    const sensors = [];
-    this.props.alarmSensors.forEach((sensor, index) => {
-      sensors.push(<AlarmSensor key={index} channel={sensor.channel} />);
-    });
+    const { alarmSensors } = this.props;
+
+    if (alarmSensors) {
+      const sensors = [];
+      alarmSensors.forEach((sensor, index) => {
+        sensors.push(<AlarmSensor key={index} channel={sensor.channel} />);
+      });
+
+      return (
+        <div>
+          {sensors}
+          <Add />
+        </div>
+      );
+    }
 
     return (
-      <div>
-        {sensors}
-        <Add />
-      </div>
+      <div />
     );
   }
 }

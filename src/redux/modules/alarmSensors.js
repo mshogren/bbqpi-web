@@ -1,15 +1,19 @@
 import firebase from 'firebase';
 
+const INITIALIZE = 'bbqpi/alarmSensors/INITIALIZE';
 const ADD_SENSOR = 'bbqpi/alarmSensors/ADD_SENSOR';
 const REMOVE_SENSOR = 'bbqpi/alarmSensors/REMOVE_SENSOR';
 
-const initialState = [];
+const initialState = null;
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
 
+  case INITIALIZE:
+    return state || [];
+
   case ADD_SENSOR: {
-    const newState = [...state];
+    const newState = state ? [...state] : [];
     newState[action.payload.channel] = action.payload;
 
     return newState;
@@ -18,6 +22,10 @@ export default function reducer(state = initialState, action) {
     return state;
   }
 }
+
+export const initialize = () => ({
+  type: INITIALIZE,
+});
 
 export const addSensor = sensorConfig => ({
   type: ADD_SENSOR,
@@ -40,6 +48,10 @@ export const listenForChanges = () => (
 
     ref.on('child_removed', (snapshot) => {
       dispatch(removeSensor(snapshot.val()));
+    });
+
+    ref.once('value', () => {
+      dispatch(initialize());
     });
   });
 

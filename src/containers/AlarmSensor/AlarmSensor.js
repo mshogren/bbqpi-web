@@ -22,7 +22,7 @@ const mapStateToProps = (state, ownProps) => {
 
     return {
       title: 'Meat Temperature',
-      label: 'Alarm',
+      canClose: true,
       icon: bell,
       max: 225,
       currentTemperature: -currentTemperature,

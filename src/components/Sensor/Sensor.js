@@ -7,12 +7,15 @@ import Close from '../Close/Close';
 const Sensor = function Sensor(props) {
   const {
     title,
+    canClose,
     icon,
     currentTemperature,
     setTemperature,
     handleChange,
     sliderDisabled,
   } = props;
+
+  const close = canClose ? (<Close />) : (<div />);
 
   const currentSliderProps = {
     ...props,
@@ -33,7 +36,7 @@ const Sensor = function Sensor(props) {
           <h5>{ title }</h5>
         </Col>
         <Col xs={1}>
-          <Close />
+          {close}
         </Col>
       </Row>
       <Row style={{ paddingBottom: '0.5em' }}>
@@ -58,6 +61,7 @@ const Sensor = function Sensor(props) {
 
 Sensor.propTypes = {
   title: React.PropTypes.string,
+  canClose: React.PropTypes.bool,
   icon: React.PropTypes.element,
   currentTemperature: React.PropTypes.number,
   setTemperature: React.PropTypes.number,
