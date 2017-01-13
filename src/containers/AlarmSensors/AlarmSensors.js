@@ -11,15 +11,15 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  handleComponentEvent: () => {
+  handleComponentMount: () => {
     dispatch(listenForChanges());
   },
 });
 
 class AlarmSensorsComponent extends Component {
   componentWillMount() {
-    const { handleComponentEvent } = this.props;
-    handleComponentEvent();
+    const { handleComponentMount } = this.props;
+    handleComponentMount();
   }
 
   render() {
@@ -48,7 +48,7 @@ class AlarmSensorsComponent extends Component {
 
 AlarmSensorsComponent.propTypes = {
   alarmSensors: React.PropTypes.shape({}),
-  handleComponentEvent: React.PropTypes.func,
+  handleComponentMount: React.PropTypes.func,
 };
 
 const AlarmSensors = connect(mapStateToProps, mapDispatchToProps)(AlarmSensorsComponent);

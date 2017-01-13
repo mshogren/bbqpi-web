@@ -6,8 +6,8 @@ import { listenForSensorChanges } from '../../redux/modules/currentSensorState';
 import { setTargetTemperature } from '../../redux/dbActions';
 
 const mapStateToProps = (state) => {
-  if (state.currentSensorState['0']) {
-    const { currentTemperature, targetTemperature, fan } = state.currentSensorState['0'];
+  if (state.currentSensorState.grillSensor) {
+    const { currentTemperature, targetTemperature, fan } = state.currentSensorState.grillSensor;
     return {
       title: 'Grill Temperature',
       icon: (<Fan on={fan} />),
@@ -21,8 +21,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  handleComponentEvent: () => {
-    dispatch(listenForSensorChanges(0));
+  handleComponentMount: () => {
+    dispatch(listenForSensorChanges('grillSensor', 0));
   },
   handleChange: (value) => {
     dispatch(setTargetTemperature(value));
@@ -31,8 +31,8 @@ const mapDispatchToProps = dispatch => ({
 
 class TargetSensorComponent extends Component {
   componentWillMount() {
-    const { handleComponentEvent } = this.props;
-    handleComponentEvent();
+    const { handleComponentMount } = this.props;
+    handleComponentMount();
   }
 
   render() {
@@ -47,7 +47,7 @@ class TargetSensorComponent extends Component {
 
 TargetSensorComponent.propTypes = {
   loading: React.PropTypes.bool,
-  handleComponentEvent: React.PropTypes.func,
+  handleComponentMount: React.PropTypes.func,
 };
 
 const TargetSensor = connect(mapStateToProps, mapDispatchToProps)(TargetSensorComponent);

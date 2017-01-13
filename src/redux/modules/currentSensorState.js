@@ -1,29 +1,45 @@
 import firebase from 'firebase';
 
 const SET_SENSOR_STATE = 'bbqpi/currentSensorState/SET_SENSOR_STATE';
+const REMOVE_SENSOR_STATE = 'bbqpi/currentSensorState/REMOVE_SENSOR_STATE';
 
-const initialState = [];
+const initialState = {};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
 
   case SET_SENSOR_STATE: {
-    const newState = [...state];
-    newState[action.payload.channel] = action.payload;
+    const { key, sensorState } = action.payload;
 
-    return newState;
+    return {
+      ...state,
+      [key]: sensorState,
+    };
+  }
+  case REMOVE_SENSOR_STATE: {
+    return Object.keys(state)
+      .filter(key => key !== action.payload)
+      .reduce((result, current) => ({
+        ...result,
+        [current]: state[current],
+      }), {});
   }
   default:
     return state;
   }
 }
 
-export const setSensorState = sensorState => ({
+export const setSensorState = (key, sensorState) => ({
   type: SET_SENSOR_STATE,
-  payload: sensorState,
+  payload: { key, sensorState },
 });
 
-export const listenForSensorChanges = channel => (
+export const removeSensorState = key => ({
+  type: REMOVE_SENSOR_STATE,
+  payload: key,
+});
+
+export const listenForSensorChanges = (key, channel) => (
   (dispatch, getState) => {
     const state = getState();
     firebase.database().ref(`users/${state.auth.userId}/state`)
@@ -31,18 +47,7 @@ export const listenForSensorChanges = channel => (
       .equalTo(channel)
       .limitToLast(1)
       .on('child_added', (snapshot) => {
-        dispatch(setSensorState(snapshot.val()));
+        dispatch(setSensorState(key, snapshot.val()));
       });
   });
-
-export const setTargetTemperature = temperature => (
-  (dispatch, getState) => {
-    const state = getState();
-    firebase.database().ref(`users/${state.auth.userId}/targetTemperature`)
-      .set(temperature).then(
-        () => {},
-        err => console.log(err),
-      );
-  }
-);
 

@@ -10,15 +10,15 @@ const mapStateToProps = state => (
 );
 
 const mapDispatchToProps = dispatch => ({
-  handleComponentEvent: () => {
+  handleComponentMount: () => {
     dispatch(login());
   },
 });
 
 class App extends Component {
   componentWillMount() {
-    const { handleComponentEvent } = this.props;
-    handleComponentEvent();
+    const { handleComponentMount } = this.props;
+    handleComponentMount();
   }
 
   render() {
@@ -52,7 +52,7 @@ class App extends Component {
 
 App.propTypes = {
   authenticated: React.PropTypes.bool,
-  handleComponentEvent: React.PropTypes.func,
+  handleComponentMount: React.PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

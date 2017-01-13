@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Sensor from '../../components/Sensor/Sensor';
 import Bell from '../../components/Bell/Bell';
-import { listenForSensorChanges } from '../../redux/modules/currentSensorState';
+import { listenForSensorChanges, removeSensorState } from '../../redux/modules/currentSensorState';
 import { setAlarmEnabled, setAlarmTemperature, removeSensor } from '../../redux/dbActions';
 
 const mapStateToProps = (state, ownProps) => {
   const { sensorId } = ownProps;
   const { alarmSensors, currentSensorState } = state;
-  const { channel, name, alarmEnabled, alarmTemperature } = alarmSensors[sensorId];
+  const { name, alarmEnabled, alarmTemperature } = alarmSensors[sensorId];
 
-  if (currentSensorState[channel]) {
-    const { currentTemperature } = currentSensorState[channel];
+  if (currentSensorState[sensorId]) {
+    const { currentTemperature } = currentSensorState[sensorId];
 
     return {
       title: name,
@@ -30,8 +30,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const { sensorId, alarmEnabled } = ownProps;
 
   return {
-    handleComponentEvent: (channel) => {
-      dispatch(listenForSensorChanges(channel));
+    handleComponentMount: (channel) => {
+      dispatch(listenForSensorChanges(sensorId, channel));
+    },
+    handleComponentUnmount: () => {
+      dispatch(removeSensorState(sensorId));
     },
     handleClick: () => {
       dispatch(setAlarmEnabled(sensorId, !alarmEnabled));
@@ -47,8 +50,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 class AlarmSensorComponent extends Component {
   componentWillMount() {
-    const { channel, handleComponentEvent } = this.props;
-    handleComponentEvent(channel);
+    const { channel, handleComponentMount } = this.props;
+    handleComponentMount(channel);
+  }
+
+  componentWillUnmount() {
+    const { handleComponentUnmount } = this.props;
+    handleComponentUnmount();
   }
 
   render() {
@@ -79,7 +87,8 @@ AlarmSensorComponent.propTypes = {
   loading: React.PropTypes.bool,
   channel: React.PropTypes.number,
   sliderDisabled: React.PropTypes.bool,
-  handleComponentEvent: React.PropTypes.func,
+  handleComponentMount: React.PropTypes.func,
+  handleComponentUnmount: React.PropTypes.func,
   handleClick: React.PropTypes.func,
 };
 
