@@ -12,10 +12,11 @@ const Sensor = function Sensor(props) {
     currentTemperature,
     setTemperature,
     handleChange,
+    handleClose,
     sliderDisabled,
   } = props;
 
-  const close = canClose ? (<Close />) : (<div />);
+  const close = canClose ? (<Close handleClick={handleClose} />) : (<div />);
 
   const currentSliderProps = {
     ...props,
@@ -66,6 +67,7 @@ Sensor.propTypes = {
   currentTemperature: React.PropTypes.number,
   setTemperature: React.PropTypes.number,
   handleChange: React.PropTypes.func,
+  handleClose: React.PropTypes.func,
   sliderDisabled: React.PropTypes.bool,
 };
 

@@ -3,62 +3,84 @@ import { connect } from 'react-redux';
 import Sensor from '../../components/Sensor/Sensor';
 import Bell from '../../components/Bell/Bell';
 import { listenForSensorChanges } from '../../redux/modules/currentSensorState';
+import { setAlarmEnabled, setAlarmTemperature, removeSensor } from '../../redux/dbActions';
 
 const mapStateToProps = (state, ownProps) => {
-  if (state.currentSensorState[ownProps.channel]) {
-    const {
-      currentTemperature,
-      targetTemperature,
-      alarmDisabled,
-    } = state.currentSensorState[ownProps.channel];
+  const { sensorId } = ownProps;
+  const { alarmSensors, currentSensorState } = state;
+  const { channel, name, alarmEnabled, alarmTemperature } = alarmSensors[sensorId];
 
-    const bellProps = {
-      on: !alarmDisabled,
-    };
-
-    const bell = (
-      <Bell {...bellProps} />
-    );
+  if (currentSensorState[channel]) {
+    const { currentTemperature } = currentSensorState[channel];
 
     return {
-      title: 'Meat Temperature',
+      title: name,
       canClose: true,
-      icon: bell,
       max: 225,
       currentTemperature: -currentTemperature,
-      setTemperature: targetTemperature,
-      sliderDisabled: alarmDisabled,
+      setTemperature: alarmTemperature,
+      sliderDisabled: !alarmEnabled,
     };
   }
 
   return { loading: true };
 };
 
-const mapDispatchToProps = dispatch => ({
-  handleComponentEvent: () => {
-    dispatch(listenForSensorChanges(2));
-  },
-});
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const { sensorId, alarmEnabled } = ownProps;
+
+  return {
+    handleComponentEvent: (channel) => {
+      dispatch(listenForSensorChanges(channel));
+    },
+    handleClick: () => {
+      dispatch(setAlarmEnabled(sensorId, !alarmEnabled));
+    },
+    handleChange: (value) => {
+      dispatch(setAlarmTemperature(sensorId, value));
+    },
+    handleClose: () => {
+      dispatch(removeSensor(sensorId));
+    },
+  };
+};
 
 class AlarmSensorComponent extends Component {
   componentWillMount() {
-    const { handleComponentEvent } = this.props;
-    handleComponentEvent();
+    const { channel, handleComponentEvent } = this.props;
+    handleComponentEvent(channel);
   }
 
   render() {
-    const { loading } = this.props;
-    return loading ? (
-      <div />
-    ) : (
-      <Sensor {...this.props} />
+    const { loading, sliderDisabled, handleClick } = this.props;
+
+    if (loading) {
+      return (
+        <div />
+      );
+    }
+
+    const bellProps = {
+      on: !sliderDisabled,
+      handleClick,
+    };
+
+    const bell = (
+      <Bell {...bellProps} />
+    );
+
+    return (
+      <Sensor {...this.props} icon={bell} />
     );
   }
 }
 
 AlarmSensorComponent.propTypes = {
   loading: React.PropTypes.bool,
+  channel: React.PropTypes.number,
+  sliderDisabled: React.PropTypes.bool,
   handleComponentEvent: React.PropTypes.func,
+  handleClick: React.PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AlarmSensorComponent);

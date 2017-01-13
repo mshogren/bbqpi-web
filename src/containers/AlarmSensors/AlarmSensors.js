@@ -27,8 +27,9 @@ class AlarmSensorsComponent extends Component {
 
     if (alarmSensors) {
       const sensors = [];
-      alarmSensors.forEach((sensor, index) => {
-        sensors.push(<AlarmSensor key={index} channel={sensor.channel} />);
+
+      Object.keys(alarmSensors).forEach((key) => {
+        sensors.push(<AlarmSensor key={key} sensorId={key} {...alarmSensors[key]} />);
       });
 
       return (
@@ -46,7 +47,7 @@ class AlarmSensorsComponent extends Component {
 }
 
 AlarmSensorsComponent.propTypes = {
-  alarmSensors: React.PropTypes.arrayOf(React.PropTypes.object),
+  alarmSensors: React.PropTypes.shape({}),
   handleComponentEvent: React.PropTypes.func,
 };
 

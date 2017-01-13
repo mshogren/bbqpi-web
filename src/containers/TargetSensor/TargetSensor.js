@@ -21,11 +21,11 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  handleChange: (value) => {
-    dispatch(setTargetTemperature(value));
-  },
   handleComponentEvent: () => {
     dispatch(listenForSensorChanges(0));
+  },
+  handleChange: (value) => {
+    dispatch(setTargetTemperature(value));
   },
 });
 
