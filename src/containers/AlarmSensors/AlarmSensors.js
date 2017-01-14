@@ -2,17 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AlarmSensor from '../AlarmSensor/AlarmSensor';
 import Add from '../../components/Add/Add';
+import Dialog from '../../components/Dialog/Dialog';
 import { listenForChanges } from '../../redux/modules/alarmSensors';
+import { toggleDialog } from '../../redux/modules/ui';
 
 const mapStateToProps = (state) => {
-  const { alarmSensors } = state;
+  const { alarmSensors, ui } = state;
 
-  return { alarmSensors };
+  return {
+    alarmSensors,
+    isDialogOpen: ui.isDialogOpen,
+  };
 };
 
 const mapDispatchToProps = dispatch => ({
   handleComponentMount: () => {
     dispatch(listenForChanges());
+  },
+  handleDialogToggle: () => {
+    dispatch(toggleDialog());
   },
 });
 
@@ -23,7 +31,7 @@ class AlarmSensorsComponent extends Component {
   }
 
   render() {
-    const { alarmSensors } = this.props;
+    const { alarmSensors, isDialogOpen, handleDialogToggle } = this.props;
 
     if (alarmSensors) {
       const sensors = [];
@@ -35,7 +43,8 @@ class AlarmSensorsComponent extends Component {
       return (
         <div>
           {sensors}
-          <Add />
+          <Add handleClick={handleDialogToggle} />
+          <Dialog isDialogOpen={isDialogOpen} handleToggle={handleDialogToggle} />
         </div>
       );
     }
@@ -49,6 +58,8 @@ class AlarmSensorsComponent extends Component {
 AlarmSensorsComponent.propTypes = {
   alarmSensors: React.PropTypes.shape({}),
   handleComponentMount: React.PropTypes.func,
+  isDialogOpen: React.PropTypes.bool,
+  handleDialogToggle: React.PropTypes.func,
 };
 
 const AlarmSensors = connect(mapStateToProps, mapDispatchToProps)(AlarmSensorsComponent);
