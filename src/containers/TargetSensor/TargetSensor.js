@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Sensor from '../../components/Sensor/Sensor';
 import Fan from '../../components/Fan/Fan';
-import { listenForSensorChanges } from '../../redux/modules/currentSensorState';
+import { listenForSensorChanges, removeSensorState } from '../../redux/modules/currentSensorState';
 import { setTargetTemperature } from '../../redux/dbActions';
 
 const mapStateToProps = (state) => {
@@ -24,6 +24,9 @@ const mapDispatchToProps = dispatch => ({
   handleComponentMount: () => {
     dispatch(listenForSensorChanges('grillSensor', 0));
   },
+  handleComponentUnmount: () => {
+    dispatch(removeSensorState('grillSensor'));
+  },
   handleChange: (value) => {
     dispatch(setTargetTemperature(value));
   },
@@ -33,6 +36,11 @@ class TargetSensorComponent extends Component {
   componentWillMount() {
     const { handleComponentMount } = this.props;
     handleComponentMount();
+  }
+
+  componentWillUnmount() {
+    const { handleComponentUnmount } = this.props;
+    handleComponentUnmount();
   }
 
   render() {
@@ -48,6 +56,7 @@ class TargetSensorComponent extends Component {
 TargetSensorComponent.propTypes = {
   loading: React.PropTypes.bool,
   handleComponentMount: React.PropTypes.func,
+  handleComponentUnmount: React.PropTypes.func,
 };
 
 const TargetSensor = connect(mapStateToProps, mapDispatchToProps)(TargetSensorComponent);

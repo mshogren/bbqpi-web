@@ -33,7 +33,7 @@ const Sensor = function Sensor(props) {
   return (
     <Container style={{ borderBottom: '1px solid #eeeeee' }}>
       <Row style={{ paddingTop: '0.5em', paddingBottom: '0.25em' }}>
-        <Col xs={10}>
+        <Col xs={11}>
           <h5>{ title }</h5>
         </Col>
         <Col xs={1}>
