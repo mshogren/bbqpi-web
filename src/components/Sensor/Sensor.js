@@ -61,7 +61,7 @@ const Sensor = function Sensor(props) {
 };
 
 Sensor.propTypes = {
-  title: React.PropTypes.string,
+  title: React.PropTypes.node,
   canClose: React.PropTypes.bool,
   icon: React.PropTypes.element,
   currentTemperature: React.PropTypes.number,
