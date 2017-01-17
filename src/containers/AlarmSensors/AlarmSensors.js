@@ -4,6 +4,7 @@ import AlarmSensor from '../AlarmSensor/AlarmSensor';
 import Add from '../../components/Add/Add';
 import Dialog from '../../components/Dialog/Dialog';
 import { listenForChanges } from '../../redux/modules/alarmSensors';
+import { addSensor } from '../../redux/dbActions';
 import { toggleDialog } from '../../redux/modules/ui';
 
 const mapStateToProps = (state) => {
@@ -22,6 +23,9 @@ const mapDispatchToProps = dispatch => ({
   handleDialogToggle: () => {
     dispatch(toggleDialog());
   },
+  handleDialogClick: (channel) => {
+    dispatch(addSensor(channel));
+  },
 });
 
 class AlarmSensorsComponent extends Component {
@@ -31,7 +35,7 @@ class AlarmSensorsComponent extends Component {
   }
 
   render() {
-    const { alarmSensors, isDialogOpen, handleDialogToggle } = this.props;
+    const { alarmSensors, isDialogOpen, handleDialogToggle, handleDialogClick } = this.props;
 
     if (alarmSensors) {
       const sensors = [];
@@ -40,11 +44,17 @@ class AlarmSensorsComponent extends Component {
         sensors.push(<AlarmSensor key={key} sensorId={key} {...alarmSensors[key]} />);
       });
 
+      const dialogProps = {
+        isDialogOpen,
+        handleToggle: handleDialogToggle,
+        handleClick: handleDialogClick,
+      };
+
       return (
         <div>
           {sensors}
           <Add handleClick={handleDialogToggle} />
-          <Dialog isDialogOpen={isDialogOpen} handleToggle={handleDialogToggle} />
+          <Dialog {...dialogProps} />
         </div>
       );
     }
@@ -60,6 +70,7 @@ AlarmSensorsComponent.propTypes = {
   handleComponentMount: React.PropTypes.func,
   isDialogOpen: React.PropTypes.bool,
   handleDialogToggle: React.PropTypes.func,
+  handleDialogClick: React.PropTypes.func,
 };
 
 const AlarmSensors = connect(mapStateToProps, mapDispatchToProps)(AlarmSensorsComponent);
