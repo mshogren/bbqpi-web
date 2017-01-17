@@ -52,6 +52,7 @@ export const addSensor = channel => (
       name: 'New Sensor',
       alarmEnabled: false,
       alarmTemperature: 140,
+      order: 10,
     };
 
     firebase.database().ref(`users/${state.auth.userId}/sensor`)
@@ -72,3 +73,37 @@ export const removeSensor = key => (
       );
   }
 );
+
+export const reorderSensors = (oldIndex, newIndex) => (
+  (dispatch, getState) => {
+    const state = getState();
+    const keys = Object.keys(state.alarmSensors);
+
+    const updates = {};
+    keys.forEach((key, index) => {
+      if (oldIndex > newIndex) {
+        if (index === oldIndex) {
+          updates[`${key}/order`] = newIndex;
+        } else if (index < newIndex) {
+          updates[`${key}/order`] = index;
+        } else if (index < oldIndex) {
+          updates[`${key}/order`] = index + 1;
+        }
+      } else if (newIndex > oldIndex) {
+        if (index === oldIndex) {
+          updates[`${key}/order`] = newIndex;
+        } else if (index > newIndex) {
+          updates[`${key}/order`] = index;
+        } else if (index > oldIndex) {
+          updates[`${key}/order`] = index - 1;
+        }
+      }
+    });
+
+    firebase.database().ref(`users/${state.auth.userId}/sensor`)
+      .update(updates).then(
+        () => {},
+        err => console.log(err),
+      );
+  }
+ );

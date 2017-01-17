@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import AlarmSensor from '../AlarmSensor/AlarmSensor';
 import Add from '../../components/Add/Add';
 import Dialog from '../../components/Dialog/Dialog';
 import { listenForChanges } from '../../redux/modules/alarmSensors';
-import { addSensor } from '../../redux/dbActions';
+import { addSensor, reorderSensors } from '../../redux/dbActions';
 import { toggleDialog } from '../../redux/modules/ui';
 
 const mapStateToProps = (state) => {
@@ -19,6 +20,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
   handleComponentMount: () => {
     dispatch(listenForChanges());
+  },
+  handleReorder: ({ oldIndex, newIndex }) => {
+    dispatch(reorderSensors(oldIndex, newIndex));
   },
   handleDialogToggle: () => {
     dispatch(toggleDialog());
@@ -35,24 +39,42 @@ class AlarmSensorsComponent extends Component {
   }
 
   render() {
-    const { alarmSensors, isDialogOpen, handleDialogToggle, handleDialogClick } = this.props;
+    const {
+      alarmSensors,
+      isDialogOpen,
+      handleDialogToggle,
+      handleDialogClick,
+      handleReorder,
+    } = this.props;
 
     if (alarmSensors) {
-      const sensors = [];
+      const SortableItem = SortableElement(({ value }) => <div>{value}</div>);
+      const SortableList = SortableContainer(({ items }) => (
+        <div>
+          {items.map((value, index) =>
+            <SortableItem key={index} index={index} value={value} />,
+          )}
+        </div>
+      ));
 
-      Object.keys(alarmSensors).forEach((key) => {
-        sensors.push(<AlarmSensor key={key} sensorId={key} {...alarmSensors[key]} />);
-      });
+      const sensors = Object.keys(alarmSensors).map(key => (
+        <AlarmSensor key={key} sensorId={key} {...alarmSensors[key]} />
+      ));
+
+      const availableChannels = Object.keys(alarmSensors).map(key => (
+        alarmSensors[key].channel
+      ));
 
       const dialogProps = {
         isDialogOpen,
+        availableChannels,
         handleToggle: handleDialogToggle,
         handleClick: handleDialogClick,
       };
 
       return (
         <div>
-          {sensors}
+          <SortableList items={sensors} pressDelay={100} onSortEnd={handleReorder} />
           <Add handleClick={handleDialogToggle} />
           <Dialog {...dialogProps} />
         </div>
@@ -71,6 +93,7 @@ AlarmSensorsComponent.propTypes = {
   isDialogOpen: React.PropTypes.bool,
   handleDialogToggle: React.PropTypes.func,
   handleDialogClick: React.PropTypes.func,
+  handleReorder: React.PropTypes.func,
 };
 
 const AlarmSensors = connect(mapStateToProps, mapDispatchToProps)(AlarmSensorsComponent);

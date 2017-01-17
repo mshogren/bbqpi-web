@@ -11,6 +11,7 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
 
   case INITIALIZE:
+    if (action.payload) return action.payload;
     return state || {};
 
   case ADD_SENSOR:
@@ -37,8 +38,9 @@ export default function reducer(state = initialState, action) {
   }
 }
 
-export const initialize = () => ({
+export const initialize = sensorConfigs => ({
   type: INITIALIZE,
+  payload: sensorConfigs,
 });
 
 export const addSensor = (key, sensorConfig) => ({
@@ -59,7 +61,7 @@ export const removeSensor = key => ({
 export const listenForChanges = () => (
   (dispatch, getState) => {
     const state = getState();
-    const ref = firebase.database().ref(`users/${state.auth.userId}/sensor`);
+    const ref = firebase.database().ref(`users/${state.auth.userId}/sensor`).orderByChild('order');
 
     ref.on('child_added', (snapshot) => {
       dispatch(addSensor(snapshot.key, snapshot.val()));
@@ -67,6 +69,12 @@ export const listenForChanges = () => (
 
     ref.on('child_changed', (snapshot) => {
       dispatch(updateSensor(snapshot.key, snapshot.val()));
+    });
+
+    ref.on('child_moved', () => {
+      ref.once('value', (snapshot) => {
+        dispatch(initialize(snapshot.val()));
+      });
     });
 
     ref.on('child_removed', (snapshot) => {

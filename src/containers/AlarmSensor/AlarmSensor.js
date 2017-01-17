@@ -63,7 +63,7 @@ class AlarmSensorComponent extends Component {
   }
 
   render() {
-    const { loading, name, sliderDisabled, handleClick, handleEdit } = this.props;
+    const { loading, name, channel, sliderDisabled, handleClick, handleEdit } = this.props;
 
     if (loading) {
       return (
@@ -77,8 +77,13 @@ class AlarmSensorComponent extends Component {
       change: handleEdit,
     };
 
+    const label = String.fromCharCode(9311 + channel);
+
     const inlineEditor = (
-      <InlineEditor {...inlineEditorProps} />
+      <span>
+        <InlineEditor {...inlineEditorProps} />
+        <span style={{ color: '#ccc' }}> {label}</span>
+      </span>
     );
 
     const bellProps = {
