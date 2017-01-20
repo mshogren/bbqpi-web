@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import AlarmSensor from '../AlarmSensor/AlarmSensor';
 import Add from '../../components/Add/Add';
 import Dialog from '../../components/Dialog/Dialog';
 import { listenForChanges } from '../../redux/modules/alarmSensors';
-import { addSensor } from '../../redux/dbActions';
+import { addSensor, reorderSensors } from '../../redux/dbActions';
 import { toggleDialog } from '../../redux/modules/ui';
 
 const mapStateToProps = (state) => {
@@ -20,9 +21,9 @@ const mapDispatchToProps = dispatch => ({
   handleComponentMount: () => {
     dispatch(listenForChanges());
   },
-  // handleReorder: ({ oldIndex, newIndex }) => {
-  //  dispatch(reorderSensors(oldIndex, newIndex));
-  // },
+  handleReorder: ({ oldIndex, newIndex }) => {
+    dispatch(reorderSensors(oldIndex, newIndex));
+  },
   handleDialogToggle: () => {
     dispatch(toggleDialog());
   },
@@ -43,10 +44,22 @@ class AlarmSensorsComponent extends Component {
       isDialogOpen,
       handleDialogToggle,
       handleDialogClick,
+      handleReorder,
     } = this.props;
 
     if (alarmSensors) {
-      const sensorIds = Object.keys(alarmSensors);
+      const SortableItem = SortableElement(({ value }) => <div>{value}</div>);
+      const SortableList = SortableContainer(({ items }) => (
+        <div>
+          {items.map((value, index) =>
+            <SortableItem key={index} index={index} value={value} />,
+          )}
+        </div>
+      ));
+
+      const sensorIds = Object.keys(alarmSensors).sort((a, b) => (
+        alarmSensors[a].order - alarmSensors[b].order
+      ));
 
       const sensors = sensorIds.map(key => (
         <AlarmSensor key={key} sensorId={key} {...alarmSensors[key]} />
@@ -67,7 +80,7 @@ class AlarmSensorsComponent extends Component {
 
       return (
         <div>
-          {sensors}
+          <SortableList items={sensors} pressDelay={100} onSortEnd={handleReorder} />
           {addButton}
           <Dialog {...dialogProps} />
         </div>
@@ -86,6 +99,7 @@ AlarmSensorsComponent.propTypes = {
   isDialogOpen: React.PropTypes.bool,
   handleDialogToggle: React.PropTypes.func,
   handleDialogClick: React.PropTypes.func,
+  handleReorder: React.PropTypes.func,
 };
 
 const AlarmSensors = connect(mapStateToProps, mapDispatchToProps)(AlarmSensorsComponent);

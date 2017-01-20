@@ -11,7 +11,6 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
 
   case INITIALIZE:
-    if (action.payload) return action.payload;
     return state || {};
 
   case ADD_SENSOR:
@@ -38,9 +37,8 @@ export default function reducer(state = initialState, action) {
   }
 }
 
-export const initialize = sensorConfigs => ({
+export const initialize = () => ({
   type: INITIALIZE,
-  payload: sensorConfigs,
 });
 
 export const addSensor = (key, sensorConfig) => ({
@@ -69,12 +67,6 @@ export const listenForChanges = () => (
 
     ref.on('child_changed', (snapshot) => {
       dispatch(updateSensor(snapshot.key, snapshot.val()));
-    });
-
-    ref.on('child_moved', () => {
-      ref.once('value', (snapshot) => {
-        dispatch(initialize(snapshot.val()));
-      });
     });
 
     ref.on('child_removed', (snapshot) => {
