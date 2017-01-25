@@ -1,13 +1,42 @@
 import firebase from 'firebase';
 
+const applicationServerPublicKey = 'BLgG-bRbqqabC0bqhxs-yIz31NkPgPjh1e5w3YE4Y9Tez6q7z4Ndq6SthLnmXkoJWkUFCAQCYm7U60qgZkmcAb4';
+
+const urlB64ToUint8Array = (base64String) => {
+  const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding)
+    .replace(/-/g, '+')
+    .replace(/_/g, '/');
+
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+
+  for (let i = 0; i < rawData.length; i += 1) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+};
+
+const subscribeAlarms = () => {
+  const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+  navigator.serviceWorker.ready.then((swReg) => {
+    swReg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey,
+    }).then((subscription) => {
+      console.log(JSON.stringify(subscription));
+    }).catch(console.log);
+  });
+};
+
+const unsubscribeAlarms = () => {
+};
+
 export const setTargetTemperature = temperature => (
   (dispatch, getState) => {
     const state = getState();
     firebase.database().ref(`users/${state.auth.userId}/targetTemperature`)
-      .set(temperature).then(
-        () => {},
-        err => console.log(err),
-      );
+      .set(temperature).then(() => {}, console.log);
   }
 );
 
@@ -15,21 +44,21 @@ export const setAlarmName = (key, name) => (
   (dispatch, getState) => {
     const state = getState();
     firebase.database().ref(`users/${state.auth.userId}/sensor/${key}/name`)
-      .set(name).then(
-        () => {},
-        err => console.log(err),
-      );
+      .set(name).then(() => {}, console.log);
   }
 );
 
 export const setAlarmEnabled = (key, enabled) => (
   (dispatch, getState) => {
+    if (enabled) {
+      subscribeAlarms();
+    } else {
+      unsubscribeAlarms();
+    }
+
     const state = getState();
     firebase.database().ref(`users/${state.auth.userId}/sensor/${key}/alarmEnabled`)
-      .set(enabled).then(
-        () => {},
-        err => console.log(err),
-      );
+      .set(enabled).then(() => {}, console.log);
   }
 );
 
@@ -37,10 +66,7 @@ export const setAlarmTemperature = (key, temperature) => (
   (dispatch, getState) => {
     const state = getState();
     firebase.database().ref(`users/${state.auth.userId}/sensor/${key}/alarmTemperature`)
-      .set(temperature).then(
-        () => {},
-        err => console.log(err),
-      );
+      .set(temperature).then(() => {}, console.log);
   }
 );
 
@@ -56,10 +82,7 @@ export const addSensor = channel => (
     };
 
     firebase.database().ref(`users/${state.auth.userId}/sensor`)
-      .push(sensorConfig).then(
-        () => {},
-        err => console.log(err),
-      );
+      .push(sensorConfig).then(() => {}, console.log);
   }
 );
 
@@ -67,10 +90,7 @@ export const removeSensor = key => (
   (dispatch, getState) => {
     const state = getState();
     firebase.database().ref(`users/${state.auth.userId}/sensor/${key}`)
-      .set(null).then(
-        () => {},
-        err => console.log(err),
-      );
+      .set(null).then(() => {}, console.log);
   }
 );
 
@@ -101,9 +121,6 @@ export const reorderSensors = (oldIndex, newIndex) => (
     });
 
     firebase.database().ref(`users/${state.auth.userId}/sensor`)
-      .update(updates).then(
-        () => {},
-        err => console.log(err),
-      );
+      .update(updates).then(() => {}, console.log);
   }
  );
