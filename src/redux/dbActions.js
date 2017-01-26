@@ -1,5 +1,9 @@
 import firebase from 'firebase';
 
+export const getBaseRef = state => (
+  firebase.database().ref(`users/${state.auth.userId}/${state.ui.deviceKey}`)
+);
+
 const applicationServerPublicKey = 'BLgG-bRbqqabC0bqhxs-yIz31NkPgPjh1e5w3YE4Y9Tez6q7z4Ndq6SthLnmXkoJWkUFCAQCYm7U60qgZkmcAb4';
 
 const urlB64ToUint8Array = (base64String) => {
@@ -35,7 +39,7 @@ const unsubscribeAlarms = () => {
 export const setTargetTemperature = temperature => (
   (dispatch, getState) => {
     const state = getState();
-    firebase.database().ref(`users/${state.auth.userId}/targetTemperature`)
+    getBaseRef(state).child('targetTemperature')
       .set(temperature).then(() => {}, console.log);
   }
 );
@@ -43,7 +47,7 @@ export const setTargetTemperature = temperature => (
 export const setAlarmName = (key, name) => (
   (dispatch, getState) => {
     const state = getState();
-    firebase.database().ref(`users/${state.auth.userId}/sensor/${key}/name`)
+    getBaseRef(state).child(`sensor/${key}/name`)
       .set(name).then(() => {}, console.log);
   }
 );
@@ -57,7 +61,7 @@ export const setAlarmEnabled = (key, enabled) => (
     }
 
     const state = getState();
-    firebase.database().ref(`users/${state.auth.userId}/sensor/${key}/alarmEnabled`)
+    getBaseRef(state).child(`sensor/${key}/alarmEnabled`)
       .set(enabled).then(() => {}, console.log);
   }
 );
@@ -65,7 +69,7 @@ export const setAlarmEnabled = (key, enabled) => (
 export const setAlarmTemperature = (key, temperature) => (
   (dispatch, getState) => {
     const state = getState();
-    firebase.database().ref(`users/${state.auth.userId}/sensor/${key}/alarmTemperature`)
+    getBaseRef(state).child(`sensor/${key}/alarmTemperature`)
       .set(temperature).then(() => {}, console.log);
   }
 );
@@ -81,7 +85,7 @@ export const addSensor = channel => (
       order: 10,
     };
 
-    firebase.database().ref(`users/${state.auth.userId}/sensor`)
+    getBaseRef(state).child('sensor')
       .push(sensorConfig).then(() => {}, console.log);
   }
 );
@@ -89,7 +93,7 @@ export const addSensor = channel => (
 export const removeSensor = key => (
   (dispatch, getState) => {
     const state = getState();
-    firebase.database().ref(`users/${state.auth.userId}/sensor/${key}`)
+    getBaseRef(state).child(`sensor/${key}`)
       .set(null).then(() => {}, console.log);
   }
 );
@@ -120,7 +124,7 @@ export const reorderSensors = (oldIndex, newIndex) => (
       }
     });
 
-    firebase.database().ref(`users/${state.auth.userId}/sensor`)
+    getBaseRef(state).child('sensor')
       .update(updates).then(() => {}, console.log);
   }
  );

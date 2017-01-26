@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import { getBaseRef } from '../dbActions';
 
 const SET_SENSOR_STATE = 'bbqpi/currentSensorState/SET_SENSOR_STATE';
 const REMOVE_SENSOR_STATE = 'bbqpi/currentSensorState/REMOVE_SENSOR_STATE';
@@ -42,7 +42,7 @@ export const removeSensorState = key => ({
 export const listenForSensorChanges = (key, channel) => (
   (dispatch, getState) => {
     const state = getState();
-    firebase.database().ref(`users/${state.auth.userId}/state`)
+    getBaseRef(state).child('state')
       .orderByChild('channel')
       .equalTo(channel)
       .limitToLast(1)

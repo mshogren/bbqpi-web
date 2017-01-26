@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Device from '../Device/Device';
-import Splash from '../../components/Splash/Splash';
-import { login } from '../../redux/modules/auth';
+import TargetSensor from '../TargetSensor/TargetSensor';
+import AlarmSensors from '../AlarmSensors/AlarmSensors';
 
 const mapStateToProps = state => ({
-  authenticated: state.auth.authenticated,
+  deviceKey: state.ui.deviceKey,
 });
 
 const mapDispatchToProps = dispatch => ({
   handleComponentMount: () => {
-    dispatch(login());
+    dispatch(() => {});
   },
 });
 
@@ -22,18 +20,21 @@ class App extends Component {
   }
 
   render() {
-    const { authenticated } = this.props;
+    const { deviceKey } = this.props;
 
-    return authenticated ? (
-      <Device />
+    return deviceKey ? (
+      <div>
+        <TargetSensor />
+        <AlarmSensors />
+      </div>
     ) : (
-      <Splash />
+      <div />
     );
   }
 }
 
 App.propTypes = {
-  authenticated: React.PropTypes.bool,
+  deviceKey: React.PropTypes.string,
   handleComponentMount: React.PropTypes.func,
 };
 

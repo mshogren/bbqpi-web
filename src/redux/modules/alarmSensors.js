@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import { getBaseRef } from '../dbActions';
 
 const INITIALIZE = 'bbqpi/alarmSensors/INITIALIZE';
 const ADD_SENSOR = 'bbqpi/alarmSensors/ADD_SENSOR';
@@ -59,7 +59,7 @@ export const removeSensor = key => ({
 export const listenForChanges = () => (
   (dispatch, getState) => {
     const state = getState();
-    const ref = firebase.database().ref(`users/${state.auth.userId}/sensor`).orderByChild('order');
+    const ref = getBaseRef(state).child('sensor').orderByChild('order');
 
     ref.on('child_added', (snapshot) => {
       dispatch(addSensor(snapshot.key, snapshot.val()));
