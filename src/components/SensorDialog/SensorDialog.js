@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Container, Row, ButtonGroup, Button } from 'reactstrap';
 
-const Dialog = function Dialog(props) {
+const SensorDialog = function SensorDialog(props) {
   const { isDialogOpen, availableChannels, handleToggle, handleClick } = props;
 
   const buttons = [1, 2, 3].map((i) => {
@@ -45,11 +45,11 @@ const Dialog = function Dialog(props) {
   );
 };
 
-Dialog.propTypes = {
+SensorDialog.propTypes = {
   isDialogOpen: React.PropTypes.bool,
   availableChannels: React.PropTypes.arrayOf(React.PropTypes.number),
   handleToggle: React.PropTypes.func,
   handleClick: React.PropTypes.func,
 };
 
-export default Dialog;
+export default SensorDialog;

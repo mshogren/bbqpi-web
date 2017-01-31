@@ -3,15 +3,20 @@ import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Device from '../Device/Device';
 import Splash from '../../components/Splash/Splash';
+import isReady from '../../redux/uiActions';
 import { login } from '../../redux/modules/auth';
+import { getAvailableDevices } from '../../redux/modules/device';
 
 const mapStateToProps = state => ({
-  authenticated: state.auth.authenticated,
+  ready: isReady(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   handleComponentMount: () => {
     dispatch(login());
+  },
+  handleComponentWillReceiveProps: () => {
+    dispatch(getAvailableDevices());
   },
 });
 
@@ -21,10 +26,15 @@ class App extends Component {
     handleComponentMount();
   }
 
-  render() {
-    const { authenticated } = this.props;
+  componentWillReceiveProps() {
+    const { ready, handleComponentWillReceiveProps } = this.props;
+    if (!ready) handleComponentWillReceiveProps();
+  }
 
-    return authenticated ? (
+  render() {
+    const { ready } = this.props;
+
+    return ready ? (
       <Device />
     ) : (
       <Splash />
@@ -33,8 +43,9 @@ class App extends Component {
 }
 
 App.propTypes = {
-  authenticated: React.PropTypes.bool,
+  ready: React.PropTypes.bool,
   handleComponentMount: React.PropTypes.func,
+  handleComponentWillReceiveProps: React.PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

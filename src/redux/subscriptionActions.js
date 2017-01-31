@@ -42,7 +42,7 @@ const subscribe = () => (
   (dispatch, getState) => {
     getPushManager().then((pushManager) => {
       const state = getState();
-      const applicationServerPublicKey = state.ui.deviceKey;
+      const applicationServerPublicKey = state.device.selected;
       const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
 
       pushManager.subscribe({

@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import AlarmSensor from '../AlarmSensor/AlarmSensor';
 import Add from '../../components/Add/Add';
-import Dialog from '../../components/Dialog/Dialog';
+import SensorDialog from '../../components/SensorDialog/SensorDialog';
 import { listenForChanges } from '../../redux/modules/alarmSensors';
 import { addSensor, reorderSensors } from '../../redux/dbActions';
-import { toggleDialog } from '../../redux/modules/ui';
+import { toggleSensorDialog } from '../../redux/modules/ui';
 
 const mapStateToProps = (state) => {
   const { alarmSensors, ui } = state;
 
   return {
     alarmSensors,
-    isDialogOpen: ui.isDialogOpen,
+    isDialogOpen: ui.isSensorDialogOpen,
   };
 };
 
@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(reorderSensors(oldIndex, newIndex));
   },
   handleDialogToggle: () => {
-    dispatch(toggleDialog());
+    dispatch(toggleSensorDialog());
   },
   handleDialogClick: (channel) => {
     dispatch(addSensor(channel));
@@ -82,7 +82,7 @@ class AlarmSensorsComponent extends Component {
         <div>
           <SortableList items={sensors} pressDelay={100} onSortEnd={handleReorder} />
           {addButton}
-          <Dialog {...dialogProps} />
+          <SensorDialog {...dialogProps} />
         </div>
       );
     }

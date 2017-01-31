@@ -1,8 +1,12 @@
 import firebase from 'firebase';
 import { processSubscriptions, getSubscriptionId } from './subscriptionActions';
 
+export const getDeviceRef = state => (
+  firebase.database().ref(`users/${state.auth.userId}/device`)
+);
+
 export const getBaseRef = state => (
-  firebase.database().ref(`users/${state.auth.userId}/${state.ui.deviceKey}`)
+  firebase.database().ref(`users/${state.auth.userId}/${state.device.selected}`)
 );
 
 export const setTargetTemperature = temperature => (

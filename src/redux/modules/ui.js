@@ -1,26 +1,24 @@
-import { loadDeviceKey } from '../localStorageActions';
-
-const SET_DEVICE_KEY = 'bbqpi/ui/SET_DEVICE_KEY';
-const TOGGLE_DIALOG = 'bbqpi/ui/TOGGLE_DIALOG';
+const TOGGLE_SENSOR_DIALOG = 'bbqpi/ui/TOGGLE_SENSOR_DIALOG';
+const TOGGLE_DEVICE_DIALOG = 'bbqpi/ui/TOGGLE_DEVICE_DIALOG';
 
 const initialState = {
-  isDialogOpen: false,
-  deviceKey: loadDeviceKey(),
+  isSensorDialogOpen: false,
+  isDeviceDialogOpen: false,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
 
-  case SET_DEVICE_KEY:
+  case TOGGLE_DEVICE_DIALOG:
     return {
       ...state,
-      deviceKey: action.payload,
+      isDeviceDialogOpen: !state.isDeviceDialogOpen,
     };
 
-  case TOGGLE_DIALOG:
+  case TOGGLE_SENSOR_DIALOG:
     return {
       ...state,
-      isDialogOpen: !state.isDialogOpen,
+      isSensorDialogOpen: !state.isSensorDialogOpen,
     };
 
   default:
@@ -28,12 +26,11 @@ export default function reducer(state = initialState, action) {
   }
 }
 
-export const setDeviceKey = deviceKey => ({
-  type: SET_DEVICE_KEY,
-  payload: deviceKey,
+export const toggleDeviceDialog = () => ({
+  type: TOGGLE_DEVICE_DIALOG,
 });
 
-export const toggleDialog = () => ({
-  type: TOGGLE_DIALOG,
+export const toggleSensorDialog = () => ({
+  type: TOGGLE_SENSOR_DIALOG,
 });
 

@@ -12,8 +12,9 @@ export const loadDeviceKey = () => {
 
 export const saveDeviceKey = (state) => {
   try {
-    const deviceKey = state.ui.deviceKey;
-    localStorage.setItem('deviceKey', deviceKey);
+    const deviceKey = state.device.selected;
+
+    if (deviceKey) localStorage.setItem('deviceKey', deviceKey);
   } catch (err) {
     // Ignore write errors
   }
