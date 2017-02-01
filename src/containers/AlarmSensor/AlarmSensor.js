@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
 
     return {
       max: 225,
-      currentTemperature: -currentTemperature,
+      currentTemperature,
       setTemperature: alarmTemperature,
       sliderDisabled: !alarmEnabled,
     };

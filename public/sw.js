@@ -1,12 +1,15 @@
 self.addEventListener('push', (event) => {
-  console.log('[Service Worker] Push Received.');
-  console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
+  const data = event.data.json();
+  const { name, alarmTemperature, currentTemperature } = data;
+  const timestamp = Date.now();
 
-  const title = 'Push Codelab';
+  const title = 'BBQ-Pi Alarm';
   const options = {
-    body: 'Yay it works.',
-    icon: 'favicon-32x32.png',
-    badge: 'favicon-32x32.png',
+    body: `${name} has reached: ${alarmTemperature}°F\nCurrent temperature: ${currentTemperature}°F`,
+    icon: 'android-chrome-192x192.png',
+    badge: 'android-chrome-192x192.png',
+    tag: data.channel,
+    timestamp,
   };
 
   event.waitUntil(self.registration.showNotification(title, options));
