@@ -1,8 +1,8 @@
 import { loadDeviceKey } from '../localStorageActions';
 import { getDeviceRef } from '../dbActions';
 
-const SET_SELECTED_DEVICE = 'bbqpi/ui/SET_SELECTED_DEVICE';
-const SET_AVAILABLE_DEVICES = 'bbqpi/ui/SET_AVAILABLE_DEVICES';
+const SET_SELECTED_DEVICE = 'bbqpi/device/SET_SELECTED_DEVICE';
+const SET_AVAILABLE_DEVICES = 'bbqpi/device/SET_AVAILABLE_DEVICES';
 
 const initialState = {
   selected: loadDeviceKey(),

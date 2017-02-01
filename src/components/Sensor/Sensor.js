@@ -2,21 +2,17 @@ import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import TemperatureSlider from '../TemperatureSlider/TemperatureSlider';
 import Thermometer from '../Thermometer/Thermometer';
-import Close from '../Close/Close';
 
 const Sensor = function Sensor(props) {
   const {
     title,
-    canClose,
+    cornerIcon,
     icon,
     currentTemperature,
     setTemperature,
     handleChange,
-    handleClose,
     sliderDisabled,
   } = props;
-
-  const close = canClose ? (<Close handleClick={handleClose} />) : (<div />);
 
   const currentSliderProps = {
     ...props,
@@ -37,7 +33,7 @@ const Sensor = function Sensor(props) {
           <h5>{ title }</h5>
         </Col>
         <Col xs={1}>
-          {close}
+          {cornerIcon}
         </Col>
       </Row>
       <Row style={{ paddingBottom: '0.5em' }}>
@@ -62,12 +58,11 @@ const Sensor = function Sensor(props) {
 
 Sensor.propTypes = {
   title: React.PropTypes.node,
-  canClose: React.PropTypes.bool,
+  cornerIcon: React.PropTypes.element,
   icon: React.PropTypes.element,
   currentTemperature: React.PropTypes.number,
   setTemperature: React.PropTypes.number,
   handleChange: React.PropTypes.func,
-  handleClose: React.PropTypes.func,
   sliderDisabled: React.PropTypes.bool,
 };
 

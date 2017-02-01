@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Sensor from '../../components/Sensor/Sensor';
 import Bell from '../../components/Bell/Bell';
 import InlineEditor from '../../components/InlineEditor/InlineEditor';
+import Close from '../../components/Close/Close';
 import { listenForSensorChanges, removeSensorState } from '../../redux/modules/currentSensorState';
 import { setAlarmName, setAlarmEnabled, setAlarmTemperature, removeSensor } from '../../redux/dbActions';
 
@@ -15,7 +16,6 @@ const mapStateToProps = (state, ownProps) => {
     const { currentTemperature } = currentSensorState[sensorId];
 
     return {
-      canClose: true,
       max: 225,
       currentTemperature: -currentTemperature,
       setTemperature: alarmTemperature,
@@ -63,7 +63,15 @@ class AlarmSensorComponent extends Component {
   }
 
   render() {
-    const { loading, name, channel, sliderDisabled, handleClick, handleEdit } = this.props;
+    const {
+      loading,
+      name,
+      channel,
+      sliderDisabled,
+      handleClick,
+      handleEdit,
+      handleClose,
+    } = this.props;
 
     if (loading) {
       return (
@@ -95,8 +103,10 @@ class AlarmSensorComponent extends Component {
       <Bell {...bellProps} />
     );
 
+    const close = (<Close handleClick={handleClose} />);
+
     return (
-      <Sensor {...this.props} title={inlineEditor} icon={bell} />
+      <Sensor {...this.props} title={inlineEditor} cornerIcon={close} icon={bell} />
     );
   }
 }
@@ -110,6 +120,7 @@ AlarmSensorComponent.propTypes = {
   handleComponentUnmount: React.PropTypes.func,
   handleClick: React.PropTypes.func,
   handleEdit: React.PropTypes.func,
+  handleClose: React.PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AlarmSensorComponent);
