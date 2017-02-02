@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Device from '../Device/Device';
 import Splash from '../../components/Splash/Splash';
 import isReady from '../../redux/uiActions';
 import { login } from '../../redux/modules/auth';
@@ -35,7 +34,9 @@ class App extends Component {
     const { ready } = this.props;
 
     return ready ? (
-      <Device />
+      <div>
+        {this.props.children}
+      </div>
     ) : (
       <Splash />
     );
@@ -44,6 +45,7 @@ class App extends Component {
 
 App.propTypes = {
   ready: React.PropTypes.bool,
+  children: React.PropTypes.element.isRequired,
   handleComponentMount: React.PropTypes.func,
   handleComponentWillReceiveProps: React.PropTypes.func,
 };

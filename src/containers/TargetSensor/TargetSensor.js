@@ -13,6 +13,7 @@ const mapStateToProps = (state) => {
     return {
       title: 'Grill Temperature',
       icon: (<Fan on={fan} />),
+      channel: 0,
       max: 450,
       currentTemperature,
       setTemperature: targetTemperature,

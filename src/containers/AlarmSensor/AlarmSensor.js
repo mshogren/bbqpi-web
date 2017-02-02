@@ -105,8 +105,15 @@ class AlarmSensorComponent extends Component {
 
     const close = (<Close handleClick={handleClose} />);
 
+    const sensorProps = {
+      ...this.props,
+      title: inlineEditor,
+      cornerIcon: close,
+      icon: bell,
+    };
+
     return (
-      <Sensor {...this.props} title={inlineEditor} cornerIcon={close} icon={bell} />
+      <Sensor {...sensorProps} />
     );
   }
 }
