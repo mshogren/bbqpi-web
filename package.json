@@ -5,7 +5,6 @@
   "devDependencies": {
     "eslint": "^3.12.2",
     "eslint-config-airbnb": "^14.1.0",
-    "eslint-config-react-app": "^0.5.0",
     "eslint-plugin-flowtype": "2.30.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "4.0.0",
