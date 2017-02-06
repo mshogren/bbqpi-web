@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import { handleError } from './uiActions';
 import { processSubscriptions, getSubscriptionId } from './subscriptionActions';
 
 export const getDeviceRef = state => (
@@ -13,7 +14,7 @@ export const setTargetTemperature = temperature => (
   (dispatch, getState) => {
     const state = getState();
     getBaseRef(state).child('targetTemperature')
-      .set(temperature).then(() => {}, console.log);
+      .set(temperature).then(() => {}, handleError);
   }
 );
 
@@ -21,7 +22,7 @@ export const setAlarmName = (key, name) => (
   (dispatch, getState) => {
     const state = getState();
     getBaseRef(state).child(`sensor/${key}/name`)
-      .set(name).then(() => {}, console.log);
+      .set(name).then(() => {}, handleError);
   }
 );
 
@@ -29,7 +30,7 @@ export const setAlarmEnabled = (key, enabled) => (
   (dispatch, getState) => {
     const state = getState();
     getBaseRef(state).child(`sensor/${key}/alarmEnabled`)
-      .set(enabled).then(() => dispatch(processSubscriptions(enabled)), console.log);
+      .set(enabled).then(() => dispatch(processSubscriptions(enabled)), handleError);
   }
 );
 
@@ -37,7 +38,7 @@ export const setAlarmTemperature = (key, temperature) => (
   (dispatch, getState) => {
     const state = getState();
     getBaseRef(state).child(`sensor/${key}/alarmTemperature`)
-      .set(temperature).then(() => {}, console.log);
+      .set(temperature).then(() => {}, handleError);
   }
 );
 
@@ -53,7 +54,7 @@ export const addSensor = channel => (
     };
 
     getBaseRef(state).child('sensor')
-      .push(sensorConfig).then(() => {}, console.log);
+      .push(sensorConfig).then(() => {}, handleError);
   }
 );
 
@@ -61,7 +62,7 @@ export const removeSensor = key => (
   (dispatch, getState) => {
     const state = getState();
     getBaseRef(state).child(`sensor/${key}`)
-      .set(null).then(() => {}, console.log);
+      .set(null).then(() => {}, handleError);
   }
 );
 
@@ -70,7 +71,7 @@ export const addSubscription = subscription => (
     const state = getState();
     getSubscriptionId(subscription).then((subscriptionId) => {
       getBaseRef(state).child(`subscription/${subscriptionId}`)
-        .set(subscription).then(() => {}, console.log);
+        .set(subscription).then(() => {}, handleError);
     });
   }
 );
@@ -80,7 +81,7 @@ export const removeSubscription = subscription => (
     const state = getState();
     getSubscriptionId(subscription).then((subscriptionId) => {
       getBaseRef(state).child(`subscription/${subscriptionId}`)
-        .set(null).then(() => {}, console.log);
+        .set(null).then(() => {}, handleError);
     });
   }
 );
@@ -112,6 +113,6 @@ export const reorderSensors = (oldIndex, newIndex) => (
     });
 
     getBaseRef(state).child('sensor')
-      .update(updates).then(() => {}, console.log);
+      .update(updates).then(() => {}, handleError);
   }
 );

@@ -37,4 +37,8 @@ Gear.propTypes = {
   handleClick: React.PropTypes.func,
 };
 
+Gear.defaultProps = {
+  handleClick() {},
+};
+
 export default Gear;

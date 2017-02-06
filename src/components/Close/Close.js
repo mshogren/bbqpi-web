@@ -14,4 +14,8 @@ Close.propTypes = {
   handleClick: React.PropTypes.func,
 };
 
+Close.defaultProps = {
+  handleClick() {},
+};
+
 export default Close;

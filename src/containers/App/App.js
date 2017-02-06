@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Splash from '../../components/Splash/Splash';
-import isReady from '../../redux/uiActions';
+import { isReady } from '../../redux/uiActions';
 import { login } from '../../redux/modules/auth';
 import { getAvailableDevices } from '../../redux/modules/device';
 
@@ -44,10 +44,10 @@ class App extends Component {
 }
 
 App.propTypes = {
-  ready: React.PropTypes.bool,
+  ready: React.PropTypes.bool.isRequired,
   children: React.PropTypes.element.isRequired,
-  handleComponentMount: React.PropTypes.func,
-  handleComponentWillReceiveProps: React.PropTypes.func,
+  handleComponentMount: React.PropTypes.func.isRequired,
+  handleComponentWillReceiveProps: React.PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

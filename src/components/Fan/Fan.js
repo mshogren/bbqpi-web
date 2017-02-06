@@ -12,10 +12,8 @@ const Fan = function Fan(props) {
     margin: '0 auto',
   };
 
-  const cond = (on === true);
-
-  const classNames = `Fan ${(cond ? ' Animate' : '')}`;
-  const color = cond ? '#abe2fb' : '#e9e9e9';
+  const classNames = `Fan ${(on ? ' Animate' : '')}`;
+  const color = on ? '#abe2fb' : '#e9e9e9';
 
   return (
     <button style={buttonStyle}>
@@ -28,6 +26,10 @@ const Fan = function Fan(props) {
 
 Fan.propTypes = {
   on: React.PropTypes.bool,
+};
+
+Fan.defaultProps = {
+  on: false,
 };
 
 export default Fan;

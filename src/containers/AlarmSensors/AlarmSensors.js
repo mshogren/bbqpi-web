@@ -52,7 +52,7 @@ class AlarmSensorsComponent extends Component {
       const SortableList = SortableContainer(({ items }) => (
         <div>
           {items.map((value, index) =>
-            <SortableItem key={index} index={index} value={value} />,
+            <SortableItem key={value.props.sensorId} index={index} value={value} />,
           )}
         </div>
       ));
@@ -62,7 +62,7 @@ class AlarmSensorsComponent extends Component {
       ));
 
       const sensors = sensorIds.map(key => (
-        <AlarmSensor key={key} sensorId={key} {...alarmSensors[key]} />
+        <AlarmSensor sensorId={key} {...alarmSensors[key]} />
       ));
 
       const addButton = sensorIds.length < 3 ? <Add handleClick={handleDialogToggle} /> : <div />;
@@ -95,11 +95,15 @@ class AlarmSensorsComponent extends Component {
 
 AlarmSensorsComponent.propTypes = {
   alarmSensors: React.PropTypes.shape({}),
-  handleComponentMount: React.PropTypes.func,
-  isDialogOpen: React.PropTypes.bool,
-  handleDialogToggle: React.PropTypes.func,
-  handleDialogClick: React.PropTypes.func,
-  handleReorder: React.PropTypes.func,
+  isDialogOpen: React.PropTypes.bool.isRequired,
+  handleComponentMount: React.PropTypes.func.isRequired,
+  handleDialogToggle: React.PropTypes.func.isRequired,
+  handleDialogClick: React.PropTypes.func.isRequired,
+  handleReorder: React.PropTypes.func.isRequired,
+};
+
+AlarmSensorsComponent.defaultProps = {
+  alarmSensors: undefined,
 };
 
 const AlarmSensors = connect(mapStateToProps, mapDispatchToProps)(AlarmSensorsComponent);

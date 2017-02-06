@@ -57,11 +57,16 @@ const DeviceDialog = function DeviceDialog(props) {
 };
 
 DeviceDialog.propTypes = {
-  isDialogOpen: React.PropTypes.bool,
+  isDialogOpen: React.PropTypes.bool.isRequired,
   availableDevices: React.PropTypes.shape({}),
   selectedDevice: React.PropTypes.string,
-  handleToggle: React.PropTypes.func,
-  handleClick: React.PropTypes.func,
+  handleToggle: React.PropTypes.func.isRequired,
+  handleClick: React.PropTypes.func.isRequired,
+};
+
+DeviceDialog.defaultProps = {
+  selectedDevice: undefined,
+  availableDevices: undefined,
 };
 
 export default DeviceDialog;

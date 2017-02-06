@@ -1,3 +1,4 @@
+import { handleError } from './uiActions';
 import { addSubscription, removeSubscription } from './dbActions';
 
 const convertArrayBufferToHexaDecimal = (buffer) => {
@@ -51,7 +52,7 @@ const subscribe = () => (
       }).then((subscription) => {
         const subscriptionData = JSON.parse(JSON.stringify(subscription));
         dispatch(addSubscription(subscriptionData));
-      }).catch(console.log);
+      }).catch(handleError);
     });
   }
 );
@@ -63,7 +64,7 @@ const unsubscribe = () => (
         if (subscription !== null) {
           subscription.unsubscribe()
             .then(() => dispatch(removeSubscription(subscription)))
-            .catch(console.log);
+            .catch(handleError);
         }
       });
     });

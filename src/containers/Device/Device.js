@@ -68,12 +68,17 @@ class Device extends Component {
 }
 
 Device.propTypes = {
-  isDialogOpen: React.PropTypes.bool,
+  isDialogOpen: React.PropTypes.bool.isRequired,
   selectedDevice: React.PropTypes.string,
   availableDevices: React.PropTypes.shape({}),
-  handleComponentMount: React.PropTypes.func,
-  handleToggle: React.PropTypes.func,
-  handleClick: React.PropTypes.func,
+  handleComponentMount: React.PropTypes.func.isRequired,
+  handleToggle: React.PropTypes.func.isRequired,
+  handleClick: React.PropTypes.func.isRequired,
+};
+
+Device.defaultProps = {
+  selectedDevice: undefined,
+  availableDevices: undefined,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Device);

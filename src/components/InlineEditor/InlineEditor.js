@@ -14,7 +14,7 @@ class InlineEditor extends Component {
 }
 
 InlineEditor.propTypes = {
-  value: React.PropTypes.string,
+  value: React.PropTypes.string.isRequired,
 };
 
 export default InlineEditor;

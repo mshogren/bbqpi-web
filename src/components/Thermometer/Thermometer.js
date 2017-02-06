@@ -34,4 +34,8 @@ Thermometer.propTypes = {
   handleClick: React.PropTypes.func,
 };
 
+Thermometer.defaultProps = {
+  handleClick() {},
+};
+
 export default Thermometer;

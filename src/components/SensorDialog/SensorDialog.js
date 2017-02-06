@@ -46,10 +46,10 @@ const SensorDialog = function SensorDialog(props) {
 };
 
 SensorDialog.propTypes = {
-  isDialogOpen: React.PropTypes.bool,
-  availableChannels: React.PropTypes.arrayOf(React.PropTypes.number),
-  handleToggle: React.PropTypes.func,
-  handleClick: React.PropTypes.func,
+  isDialogOpen: React.PropTypes.bool.isRequired,
+  availableChannels: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
+  handleToggle: React.PropTypes.func.isRequired,
+  handleClick: React.PropTypes.func.isRequired,
 };
 
 export default SensorDialog;

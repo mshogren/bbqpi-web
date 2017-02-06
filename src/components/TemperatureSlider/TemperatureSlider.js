@@ -34,6 +34,12 @@ SliderHandle.propTypes = {
   disabled: React.PropTypes.bool,
 };
 
+SliderHandle.defaultProps = {
+  value: '',
+  offset: 0,
+  disabled: false,
+};
+
 const TemperatureSlider = function TemperatureSlider(props) {
   return (
     <Slider {...props} handle={<SliderHandle disabled={props.disabled} />} />
@@ -42,6 +48,10 @@ const TemperatureSlider = function TemperatureSlider(props) {
 
 TemperatureSlider.propTypes = {
   disabled: React.PropTypes.bool,
+};
+
+TemperatureSlider.defaultProps = {
+  disabled: false,
 };
 
 export default TemperatureSlider;

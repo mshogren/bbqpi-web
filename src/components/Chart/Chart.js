@@ -136,8 +136,8 @@ class Chart extends Component {
 Chart.propTypes = {
   params: React.PropTypes.shape({
     channel: React.PropTypes.string,
-  }),
-  alarmSensors: React.PropTypes.shape({}),
+  }).isRequired,
+  alarmSensors: React.PropTypes.shape({}).isRequired,
 };
 
 export default connect(mapStateToProps)(Chart);

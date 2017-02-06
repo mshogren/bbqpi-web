@@ -19,7 +19,7 @@ const Bell = function Bell(props) {
     height: '32px',
   };
 
-  const color = (on === true) ? '#abe2fb' : '#e9e9e9';
+  const color = on ? '#abe2fb' : '#e9e9e9';
 
   return (
     <button style={buttonStyle} onClick={handleClick}>
@@ -33,6 +33,11 @@ const Bell = function Bell(props) {
 Bell.propTypes = {
   on: React.PropTypes.bool,
   handleClick: React.PropTypes.func,
+};
+
+Bell.defaultProps = {
+  on: false,
+  handleClick() {},
 };
 
 export default Bell;

@@ -63,19 +63,22 @@ const Sensor = function Sensor(props) {
 };
 
 Sensor.propTypes = {
-  title: React.PropTypes.node,
+  title: React.PropTypes.node.isRequired,
   cornerIcon: React.PropTypes.element,
   icon: React.PropTypes.element,
-  channel: React.PropTypes.number,
+  channel: React.PropTypes.number.isRequired,
   currentTemperature: React.PropTypes.number,
   setTemperature: React.PropTypes.number,
-  handleChange: React.PropTypes.func,
+  handleChange: React.PropTypes.func.isRequired,
   sliderDisabled: React.PropTypes.bool,
 };
 
 Sensor.defaultProps = {
+  cornerIcon: '',
+  icon: '',
   currentTemperature: 0,
   setTemperature: 0,
+  sliderDisabled: false,
 };
 
 export default Sensor;

@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import { handleError } from '../uiActions';
 
 const SET_USER_ID = 'bbqpi/auth/SET_USER_ID';
 
@@ -34,10 +35,9 @@ export const login = () => (
   (dispatch) => {
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
-        firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
-          result => console.log(result),
-          err => console.log(err),
-        );
+        firebase.auth()
+          .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+          .then(() => {}, handleError);
       } else {
         dispatch(setUserId(user.uid));
       }

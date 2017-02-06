@@ -64,9 +64,13 @@ class TargetSensorComponent extends Component {
 
 TargetSensorComponent.propTypes = {
   loading: React.PropTypes.bool,
-  handleComponentMount: React.PropTypes.func,
-  handleComponentUnmount: React.PropTypes.func,
-  handleToggle: React.PropTypes.func,
+  handleComponentMount: React.PropTypes.func.isRequired,
+  handleComponentUnmount: React.PropTypes.func.isRequired,
+  handleToggle: React.PropTypes.func.isRequired,
+};
+
+TargetSensorComponent.defaultProps = {
+  loading: false,
 };
 
 const TargetSensor = connect(mapStateToProps, mapDispatchToProps)(TargetSensorComponent);

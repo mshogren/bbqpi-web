@@ -34,4 +34,8 @@ Add.propTypes = {
   handleClick: React.PropTypes.func,
 };
 
+Add.defaultProps = {
+  handleClick() {},
+};
+
 export default Add;

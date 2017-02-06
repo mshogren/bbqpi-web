@@ -120,14 +120,19 @@ class AlarmSensorComponent extends Component {
 
 AlarmSensorComponent.propTypes = {
   loading: React.PropTypes.bool,
-  name: React.PropTypes.string,
-  channel: React.PropTypes.number,
+  name: React.PropTypes.string.isRequired,
+  channel: React.PropTypes.number.isRequired,
   sliderDisabled: React.PropTypes.bool,
-  handleComponentMount: React.PropTypes.func,
-  handleComponentUnmount: React.PropTypes.func,
-  handleClick: React.PropTypes.func,
-  handleEdit: React.PropTypes.func,
-  handleClose: React.PropTypes.func,
+  handleComponentMount: React.PropTypes.func.isRequired,
+  handleComponentUnmount: React.PropTypes.func.isRequired,
+  handleClick: React.PropTypes.func.isRequired,
+  handleEdit: React.PropTypes.func.isRequired,
+  handleClose: React.PropTypes.func.isRequired,
+};
+
+AlarmSensorComponent.defaultProps = {
+  loading: false,
+  sliderDisabled: false,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AlarmSensorComponent);
