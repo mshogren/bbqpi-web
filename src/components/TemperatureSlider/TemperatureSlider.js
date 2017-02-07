@@ -1,48 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Slider from 'rc-slider';
 import './TemperatureSlider.css';
 
-/* eslint-disable react/prefer-stateless-function */
-class SliderHandle extends Component {
-  render() {
-    const { value, offset, disabled } = this.props;
+const SliderHandle = function SliderHandle(props) {
+  const Handle = Slider.Handle;
+  const { value, offset } = props;
 
-    const handleStyle = {
-      position: 'absolute',
-      transform: 'translate(-50%, -50%)',
-      cursor: disabled ? 'not-allowed' : 'pointer',
-      padding: '2px',
-      border: '2px solid',
-      borderColor: disabled ? '#efefef' : '#abe2fb',
-      borderRadius: '3px',
-      background: '#fff',
-      fontSize: '14px',
-      textAlign: 'center',
-      left: `${offset}%`,
-    };
+  const handleStyle = {
+    left: `${offset}%`,
+  };
 
-    return (
-      <div style={handleStyle}>{value}°F</div>
-    );
-  }
-}
-/* eslint-enable react/prefer-stateless-function */
-
-SliderHandle.propTypes = {
-  value: React.PropTypes.node,
-  offset: React.PropTypes.number,
-  disabled: React.PropTypes.bool,
+  return (<div className="my-rc-slider-handle" style={handleStyle}>{value}°F<Handle {...props} /></div>);
 };
 
-SliderHandle.defaultProps = {
-  value: '',
-  offset: 0,
-  disabled: false,
+SliderHandle.propTypes = {
+  value: React.PropTypes.number.isRequired,
+  offset: React.PropTypes.number.isRequired,
 };
 
 const TemperatureSlider = function TemperatureSlider(props) {
   return (
-    <Slider {...props} handle={<SliderHandle disabled={props.disabled} />} />
+    <Slider {...props} handle={SliderHandle} />
   );
 };
 
