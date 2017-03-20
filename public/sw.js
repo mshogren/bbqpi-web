@@ -5,7 +5,7 @@ self.addEventListener('push', (event) => {
 
   const title = 'BBQ-Pi Alarm';
   const options = {
-    body: `${name} has reached: ${alarmTemperature}°F\nCurrent temperature: ${currentTemperature}°F`,
+    body: `${name} has reached the target: ${alarmTemperature}°F\nCurrent temperature: ${currentTemperature}°F`,
     icon: 'android-chrome-192x192.png',
     badge: 'android-chrome-192x192.png',
     tag: data.channel,

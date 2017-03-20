@@ -10,7 +10,7 @@ const SliderHandle = function SliderHandle(props) {
     left: `${offset}%`,
   };
 
-  return (<div className="my-rc-slider-handle" style={handleStyle}>{value}°F<Handle {...props} /></div>);
+  return (<div className="my-rc-slider-handle" style={handleStyle}>{value}°F<Handle value={value} /></div>);
 };
 
 SliderHandle.propTypes = {
