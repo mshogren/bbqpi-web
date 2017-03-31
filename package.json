@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "babel-preset-airbnb": "^2.2.3",
+    "codecov": "^2.1.0",
     "eslint": "^3.18.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-flowtype": "^2.30.4",
@@ -33,7 +34,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test --coverage && codecov",
+    "jest": "react-scripts test --env=jsdom",
     "posttest": "eslint .",
     "eject": "react-scripts eject"
   },
