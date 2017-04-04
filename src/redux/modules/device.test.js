@@ -1,8 +1,13 @@
-import reducer, { setSelectedDevice, setAvailableDevices } from './device';
+import reducer, { setSelectedDevice, setAvailableDevices, getAvailableDevices } from './device';
 import { loadDeviceKey } from '../localStorageActions';
+import { getDeviceRef } from '../dbActions';
 
 jest.mock('../localStorageActions', () => ({
   loadDeviceKey: jest.fn(() => 'deviceKey'),
+}));
+
+jest.mock('../dbActions', () => ({
+  getDeviceRef: jest.fn(),
 }));
 
 test('reducer returns initial state', () => {
@@ -55,5 +60,28 @@ test('reducer sets the available devices to empty object', () => {
   }, setAvailableDevices())).toEqual({
     selected: 'deviceKey',
     available: {},
+  });
+});
+
+test('getAvailableDevices dispatches setAvailableDevices action', () => {
+  const state = {};
+  const dispatch = jest.fn();
+  const getState = jest.fn(() => state);
+
+  const val = jest.fn(() => 'payload');
+  const snapshot = { val };
+  const once = jest.fn((event, callback) => callback(snapshot));
+
+  getDeviceRef.mockReturnValue({ once });
+
+  getAvailableDevices()(dispatch, getState);
+
+  expect(getState).toHaveBeenCalled();
+  expect(getDeviceRef).toHaveBeenCalledWith(state);
+  expect(once).toHaveBeenCalledWith('value', expect.any(Function));
+  expect(val).toHaveBeenCalled();
+  expect(dispatch).toHaveBeenCalledWith({
+    type: 'bbqpi/device/SET_AVAILABLE_DEVICES',
+    payload: 'payload',
   });
 });
