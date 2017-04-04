@@ -1,7 +1,7 @@
 import reducer, { toggleDeviceDialog, toggleSensorDialog } from './ui';
 
 test('reducer returns initial state', () => {
-  expect(reducer(undefined, { type: null })).toMatchObject({
+  expect(reducer(undefined, { type: null })).toEqual({
     isDeviceDialogOpen: false,
     isSensorDialogOpen: false,
   });
@@ -12,7 +12,7 @@ test('reducer returns initial state', () => {
     expect(reducer({
       isDeviceDialogOpen: false,
       isSensorDialogOpen: sensorDialogState,
-    }, toggleDeviceDialog())).toMatchObject({
+    }, toggleDeviceDialog())).toEqual({
       isDeviceDialogOpen: true,
       isSensorDialogOpen: sensorDialogState,
     });
@@ -24,7 +24,7 @@ test('reducer returns initial state', () => {
     expect(reducer({
       isDeviceDialogOpen: true,
       isSensorDialogOpen: sensorDialogState,
-    }, toggleDeviceDialog())).toMatchObject({
+    }, toggleDeviceDialog())).toEqual({
       isDeviceDialogOpen: false,
       isSensorDialogOpen: sensorDialogState,
     });
@@ -36,7 +36,7 @@ test('reducer returns initial state', () => {
     expect(reducer({
       isDeviceDialogOpen: deviceDialogState,
       isSensorDialogOpen: false,
-    }, toggleSensorDialog())).toMatchObject({
+    }, toggleSensorDialog())).toEqual({
       isDeviceDialogOpen: deviceDialogState,
       isSensorDialogOpen: true,
     });
@@ -48,7 +48,7 @@ test('reducer returns initial state', () => {
     expect(reducer({
       isDeviceDialogOpen: deviceDialogState,
       isSensorDialogOpen: true,
-    }, toggleSensorDialog())).toMatchObject({
+    }, toggleSensorDialog())).toEqual({
       isDeviceDialogOpen: deviceDialogState,
       isSensorDialogOpen: false,
     });
