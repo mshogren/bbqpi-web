@@ -34,7 +34,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --coverage && codecov",
+    "test": "react-scripts test --env=jsdom --coverage && codecov",
     "jest": "react-scripts test --env=jsdom",
     "posttest": "eslint .",
     "eject": "react-scripts eject"
