@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Sensor from '../../components/Sensor/Sensor';
 import Bell from '../../components/Bell/Bell';
@@ -119,15 +120,15 @@ class AlarmSensorComponent extends Component {
 }
 
 AlarmSensorComponent.propTypes = {
-  loading: React.PropTypes.bool,
-  name: React.PropTypes.string.isRequired,
-  channel: React.PropTypes.number.isRequired,
-  sliderDisabled: React.PropTypes.bool,
-  handleComponentMount: React.PropTypes.func.isRequired,
-  handleComponentUnmount: React.PropTypes.func.isRequired,
-  handleClick: React.PropTypes.func.isRequired,
-  handleEdit: React.PropTypes.func.isRequired,
-  handleClose: React.PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+  name: PropTypes.string.isRequired,
+  channel: PropTypes.number.isRequired,
+  sliderDisabled: PropTypes.bool,
+  handleComponentMount: PropTypes.func.isRequired,
+  handleComponentUnmount: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
 };
 
 AlarmSensorComponent.defaultProps = {

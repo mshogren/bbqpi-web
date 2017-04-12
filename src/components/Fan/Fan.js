@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Fan.css';
 
 const Fan = function Fan(props) {
@@ -25,7 +26,7 @@ const Fan = function Fan(props) {
 };
 
 Fan.propTypes = {
-  on: React.PropTypes.bool,
+  on: PropTypes.bool,
 };
 
 Fan.defaultProps = {

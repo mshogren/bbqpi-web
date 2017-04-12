@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import AlarmSensor from '../AlarmSensor/AlarmSensor';
@@ -94,12 +95,12 @@ class AlarmSensorsComponent extends Component {
 }
 
 AlarmSensorsComponent.propTypes = {
-  alarmSensors: React.PropTypes.shape({}),
-  isDialogOpen: React.PropTypes.bool.isRequired,
-  handleComponentMount: React.PropTypes.func.isRequired,
-  handleDialogToggle: React.PropTypes.func.isRequired,
-  handleDialogClick: React.PropTypes.func.isRequired,
-  handleReorder: React.PropTypes.func.isRequired,
+  alarmSensors: PropTypes.shape({}),
+  isDialogOpen: PropTypes.bool.isRequired,
+  handleComponentMount: PropTypes.func.isRequired,
+  handleDialogToggle: PropTypes.func.isRequired,
+  handleDialogClick: PropTypes.func.isRequired,
+  handleReorder: PropTypes.func.isRequired,
 };
 
 AlarmSensorsComponent.defaultProps = {

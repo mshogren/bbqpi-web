@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { RIEInput } from 'riek';
 
 class InlineEditor extends Component {
@@ -14,7 +15,7 @@ class InlineEditor extends Component {
 }
 
 InlineEditor.propTypes = {
-  value: React.PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default InlineEditor;

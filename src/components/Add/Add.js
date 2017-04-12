@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Add = function Add(props) {
   const { handleClick } = props;
@@ -31,7 +32,7 @@ const Add = function Add(props) {
 };
 
 Add.propTypes = {
-  handleClick: React.PropTypes.func,
+  handleClick: PropTypes.func,
 };
 
 Add.defaultProps = {

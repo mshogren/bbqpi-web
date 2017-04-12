@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { Container, Row, Col } from 'reactstrap';
 import TemperatureSlider from '../TemperatureSlider/TemperatureSlider';
@@ -63,14 +64,14 @@ const Sensor = function Sensor(props) {
 };
 
 Sensor.propTypes = {
-  title: React.PropTypes.node.isRequired,
-  cornerIcon: React.PropTypes.element,
-  icon: React.PropTypes.element,
-  channel: React.PropTypes.number.isRequired,
-  currentTemperature: React.PropTypes.number,
-  setTemperature: React.PropTypes.number,
-  handleChange: React.PropTypes.func.isRequired,
-  sliderDisabled: React.PropTypes.bool,
+  title: PropTypes.node.isRequired,
+  cornerIcon: PropTypes.element,
+  icon: PropTypes.element,
+  channel: PropTypes.number.isRequired,
+  currentTemperature: PropTypes.number,
+  setTemperature: PropTypes.number,
+  handleChange: PropTypes.func.isRequired,
+  sliderDisabled: PropTypes.bool,
 };
 
 Sensor.defaultProps = {

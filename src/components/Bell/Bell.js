@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Bell = function Bell(props) {
   const { on, handleClick } = props;
@@ -31,8 +32,8 @@ const Bell = function Bell(props) {
 };
 
 Bell.propTypes = {
-  on: React.PropTypes.bool,
-  handleClick: React.PropTypes.func,
+  on: PropTypes.bool,
+  handleClick: PropTypes.func,
 };
 
 Bell.defaultProps = {

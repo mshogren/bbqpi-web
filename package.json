@@ -16,6 +16,7 @@
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
     "firebase": "^3.7.6",
+    "prop-types": "^15.5.7",
     "rc-slider": "^7.0.0",
     "rc-tooltip": "^3.4.2",
     "react": "^15.5.4",

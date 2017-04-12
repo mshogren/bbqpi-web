@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Splash from '../../components/Splash/Splash';
@@ -44,10 +45,10 @@ class App extends Component {
 }
 
 App.propTypes = {
-  ready: React.PropTypes.bool.isRequired,
-  children: React.PropTypes.element.isRequired,
-  handleComponentMount: React.PropTypes.func.isRequired,
-  handleComponentWillReceiveProps: React.PropTypes.func.isRequired,
+  ready: PropTypes.bool.isRequired,
+  children: PropTypes.element.isRequired,
+  handleComponentMount: PropTypes.func.isRequired,
+  handleComponentWillReceiveProps: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

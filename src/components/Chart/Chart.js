@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { Container, Row, Col } from 'reactstrap';
@@ -134,10 +135,10 @@ class Chart extends Component {
 }
 
 Chart.propTypes = {
-  params: React.PropTypes.shape({
-    channel: React.PropTypes.string,
+  params: PropTypes.shape({
+    channel: PropTypes.string,
   }).isRequired,
-  alarmSensors: React.PropTypes.shape({}).isRequired,
+  alarmSensors: PropTypes.shape({}).isRequired,
 };
 
 export default connect(mapStateToProps)(Chart);

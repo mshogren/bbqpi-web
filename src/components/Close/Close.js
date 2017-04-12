@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Close = function Bell(props) {
   const { handleClick } = props;
@@ -11,7 +12,7 @@ const Close = function Bell(props) {
 };
 
 Close.propTypes = {
-  handleClick: React.PropTypes.func,
+  handleClick: PropTypes.func,
 };
 
 Close.defaultProps = {

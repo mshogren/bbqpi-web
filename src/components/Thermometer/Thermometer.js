@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Thermometer = function Thermometer(props) {
   const { handleClick } = props;
@@ -31,7 +32,7 @@ const Thermometer = function Thermometer(props) {
 };
 
 Thermometer.propTypes = {
-  handleClick: React.PropTypes.func,
+  handleClick: PropTypes.func,
 };
 
 Thermometer.defaultProps = {

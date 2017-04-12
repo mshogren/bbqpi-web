@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TargetSensor from '../TargetSensor/TargetSensor';
 import AlarmSensors from '../AlarmSensors/AlarmSensors';
@@ -68,12 +69,12 @@ class Device extends Component {
 }
 
 Device.propTypes = {
-  isDialogOpen: React.PropTypes.bool.isRequired,
-  selectedDevice: React.PropTypes.string,
-  availableDevices: React.PropTypes.shape({}),
-  handleComponentMount: React.PropTypes.func.isRequired,
-  handleToggle: React.PropTypes.func.isRequired,
-  handleClick: React.PropTypes.func.isRequired,
+  isDialogOpen: PropTypes.bool.isRequired,
+  selectedDevice: PropTypes.string,
+  availableDevices: PropTypes.shape({}),
+  handleComponentMount: PropTypes.func.isRequired,
+  handleToggle: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 Device.defaultProps = {

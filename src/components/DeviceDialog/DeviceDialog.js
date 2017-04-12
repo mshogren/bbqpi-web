@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Container, Row, ButtonGroup, Button } from 'reactstrap';
 
 const DeviceDialog = function DeviceDialog(props) {
@@ -57,11 +58,11 @@ const DeviceDialog = function DeviceDialog(props) {
 };
 
 DeviceDialog.propTypes = {
-  isDialogOpen: React.PropTypes.bool.isRequired,
-  availableDevices: React.PropTypes.shape({}),
-  selectedDevice: React.PropTypes.string,
-  handleToggle: React.PropTypes.func.isRequired,
-  handleClick: React.PropTypes.func.isRequired,
+  isDialogOpen: PropTypes.bool.isRequired,
+  availableDevices: PropTypes.shape({}),
+  selectedDevice: PropTypes.string,
+  handleToggle: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 DeviceDialog.defaultProps = {

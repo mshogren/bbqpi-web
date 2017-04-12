@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Slider from 'rc-slider';
 import './TemperatureSlider.css';
 
@@ -14,8 +15,8 @@ const SliderHandle = function SliderHandle(props) {
 };
 
 SliderHandle.propTypes = {
-  value: React.PropTypes.number.isRequired,
-  offset: React.PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+  offset: PropTypes.number.isRequired,
 };
 
 const TemperatureSlider = function TemperatureSlider(props) {
@@ -25,7 +26,7 @@ const TemperatureSlider = function TemperatureSlider(props) {
 };
 
 TemperatureSlider.propTypes = {
-  disabled: React.PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 TemperatureSlider.defaultProps = {

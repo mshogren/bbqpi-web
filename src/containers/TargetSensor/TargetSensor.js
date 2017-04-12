@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Sensor from '../../components/Sensor/Sensor';
 import Fan from '../../components/Fan/Fan';
@@ -63,10 +64,10 @@ class TargetSensorComponent extends Component {
 }
 
 TargetSensorComponent.propTypes = {
-  loading: React.PropTypes.bool,
-  handleComponentMount: React.PropTypes.func.isRequired,
-  handleComponentUnmount: React.PropTypes.func.isRequired,
-  handleToggle: React.PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+  handleComponentMount: PropTypes.func.isRequired,
+  handleComponentUnmount: PropTypes.func.isRequired,
+  handleToggle: PropTypes.func.isRequired,
 };
 
 TargetSensorComponent.defaultProps = {

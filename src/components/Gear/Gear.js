@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Gear = function Gear(props) {
   const { handleClick } = props;
@@ -34,7 +35,7 @@ const Gear = function Gear(props) {
 };
 
 Gear.propTypes = {
-  handleClick: React.PropTypes.func,
+  handleClick: PropTypes.func,
 };
 
 Gear.defaultProps = {
