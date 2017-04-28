@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 import { Container, Row, Col } from 'reactstrap';
 import { Chart as ChartComponent } from 'react-google-charts';
+import { Redirect } from 'react-router-dom';
 import Close from '../Close/Close';
 import { getBaseRef } from '../../redux/dbActions';
 
@@ -20,7 +20,7 @@ class Chart extends Component {
   }
 
   componentDidMount() {
-    const channel = Number(this.props.params.channel);
+    const channel = Number(this.props.match.params.channel);
 
     const initialRef = getBaseRef(this.props).child('state')
       .orderByChild('channel');
@@ -83,7 +83,7 @@ class Chart extends Component {
     }
 
     let title = 'Grill Temperature';
-    const channel = Number(this.props.params.channel);
+    const channel = Number(this.props.match.params.channel);
     const sensorKey = Object.keys(this.props.alarmSensors).find(key => (
       this.props.alarmSensors[key].channel === channel
     ));
@@ -116,29 +116,39 @@ class Chart extends Component {
       height: '400px',
     };
 
-    return (
+    const alarmSensors = this.props.alarmSensors;
+    const isSensorSetupOnChannel = channel === 0
+      || (alarmSensors
+        && Object.keys(alarmSensors).every(key => alarmSensors[key].channel === channel));
+
+    return isSensorSetupOnChannel ? (
       <Container>
         <Row style={{ paddingTop: '0.5em', paddingBottom: '0.25em' }}>
           <Col xs={11}>
             <h5>{title}</h5>
           </Col>
           <Col xs={1}>
-            <Close handleClick={browserHistory.goBack} />
+            <Close handleClick={this.props.history.goBack} />
           </Col>
         </Row>
         <Row>
           <ChartComponent {...chartProps} />
         </Row>
       </Container>
-    );
+    ) : (<Redirect to="/" />);
   }
 }
 
 Chart.propTypes = {
-  params: PropTypes.shape({
-    channel: PropTypes.string,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      channel: PropTypes.string,
+    }),
   }).isRequired,
   alarmSensors: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({
+    goBack: PropTypes.func,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps)(Chart);

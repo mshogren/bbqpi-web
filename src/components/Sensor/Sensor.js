@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { browserHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
 import TemperatureSlider from '../TemperatureSlider/TemperatureSlider';
 import Thermometer from '../Thermometer/Thermometer';
@@ -29,10 +29,6 @@ const Sensor = function Sensor(props) {
     onAfterChange: handleChange,
   };
 
-  const handleNav = () => {
-    browserHistory.push(`/chart/${channel}`);
-  };
-
   return (
     <Container style={{ borderBottom: '1px solid #eeeeee' }}>
       <Row style={{ paddingTop: '0.5em', paddingBottom: '0.25em' }}>
@@ -45,7 +41,9 @@ const Sensor = function Sensor(props) {
       </Row>
       <Row style={{ paddingBottom: '0.5em' }}>
         <Col xs={2}>
-          <Thermometer handleClick={handleNav} />
+          <Link to={'/chart/' + channel}>
+            <Thermometer />
+          </Link>
         </Col>
         <Col xs={9}>
           <TemperatureSlider {...currentSliderProps} />
