@@ -29,6 +29,8 @@ const Sensor = function Sensor(props) {
     onAfterChange: handleChange,
   };
 
+  const linkTo = `/chart/${channel}`;
+
   return (
     <Container style={{ borderBottom: '1px solid #eeeeee' }}>
       <Row style={{ paddingTop: '0.5em', paddingBottom: '0.25em' }}>
@@ -41,7 +43,7 @@ const Sensor = function Sensor(props) {
       </Row>
       <Row style={{ paddingBottom: '0.5em' }}>
         <Col xs={2}>
-          <Link to={'/chart/' + channel}>
+          <Link to={linkTo}>
             <Thermometer />
           </Link>
         </Col>
