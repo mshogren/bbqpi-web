@@ -5,7 +5,7 @@
   "devDependencies": {
     "babel-preset-airbnb": "^2.4.0",
     "codecov": "^2.3.0",
-    "eslint": "^4.4.1",
+    "eslint": "^4.5.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-flowtype": "^2.35.0",
     "eslint-plugin-import": "^2.7.0",
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
-    "firebase": "^4.2.0",
+    "firebase": "^4.3.0",
     "prop-types": "^15.5.10",
     "rc-slider": "^8.3.1",
     "react": "^15.6.1",
