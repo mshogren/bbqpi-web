@@ -1,9 +1,12 @@
 {
   "libs": [
     "browser",
+    "ecmascript",
     "underscore"
   ],
   "plugins": {
-    "node": {}
+    "node": {},
+    "modules": {},
+    "es_modules": {}
   }
 }
