@@ -1,9 +1,13 @@
 dist: trusty
 sudo: false
-language : node_js
+language: node_js
 node_js:
-  - "8"
+- '8'
 cache:
   directories:
   - node_modules
+deploy:
+  provider: firebase
+  token:
+    secure: X8n8gdw8OGf3AJSPOYt1wBE8pHeP/MF3RFd6cBT8FV+/DG73k/xXE80jsEsWoyv86apFCWRQxnqNJ1RLJoa1vg77V8AClvZ8wS8lrAiRqmRZjocJ1UA2qdTkVKely117h2rtKVZj24/JDzYfJCPJum7pkHgc5ls6Rs2yj1y1DYhpQxVaAsTmSUr/zJi6CG/rO/gVYFomhbXWQ1jzbXcMaievnPOpkIK/Wh3GYCil/g4m0VAHdV7pkjlEHlmNjfvgwmm1iAJQp0MURPhgWlDOT66mQ064bUimFp7l9WTHip1LdGaWjEd6JM5M1REEv9M/cLJtYP9Ss22eApzIQ4LjqDmoFmsqia6hzO0Z3IKtBNc8WiTduex+QtOpLfyeC6n+Abm/lQ0CuJE1db2HaLwduL1bG/t4bOgf/mn0caHTtcOgAJVYfEDde3JRTgUtxxEqlH6MIZjpRje+Wt0g9cGbbNVVvrdEuDBtblpyvImqkPbQE73XVMpd/KmTySScPqNGPc/70ac0ETZXpsoV5Qh08fJDVIMasI+l5JckbkRA/yUj0Zm3v/qMalTC/Ys3+d92dFVn5H4fe0aEBFg6QL/kdr4qCuc98k3MEmciPJRs+8aGb2uWqX7AdZoWKLWMlBT0JmPdcTfaF4J9YNWhM3apSkKEkHyLCswtm0LJda0lJJ4=
 

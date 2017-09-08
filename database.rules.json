@@ -1,0 +1,32 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        "device": {
+          ".write": "auth != null && auth.uid == $uid"
+        },
+        "$deviceId": {
+          "state": {
+            ".indexOn": [
+              "timestamp",
+              "channel"
+            ],
+            ".write": "auth != null && auth.uid == $uid"
+          },
+          "targetTemperature": {
+            ".write": "auth != null && auth.uid == $uid"
+          },
+          "sensor": {
+            ".write": "auth != null && auth.uid == $uid"
+          },
+          "subscription": {
+            ".write": "auth != null && auth.uid == $uid"
+          }
+        },
+        ".read": "auth != null && auth.uid == $uid"
+      }
+    },
+    ".read": "false",
+    ".write": "false"
+  }
+}
