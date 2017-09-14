@@ -10,10 +10,15 @@ import { toggleDeviceDialog } from '../../redux/modules/ui';
 
 const mapStateToProps = (state) => {
   if (state.currentSensorState.grillSensor) {
-    const { currentTemperature, targetTemperature, fan } = state.currentSensorState.grillSensor;
+    const {
+      currentTemperature,
+      targetTemperature,
+      fanLevel,
+    } = state.currentSensorState.grillSensor;
+
     return {
       title: 'Grill Temperature',
-      icon: (<Fan on={fan} />),
+      icon: (<Fan level={fanLevel} />),
       channel: 0,
       max: 450,
       currentTemperature,
