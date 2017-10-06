@@ -34,9 +34,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     handleComponentMount: (channel) => {
       dispatch(listenForSensorChanges(sensorId, channel));
     },
-    handleComponentUnmount: () => {
-      dispatch(removeSensorState(sensorId));
-    },
     handleClick: () => {
       dispatch(setAlarmEnabled(sensorId, !alarmEnabled));
     },
@@ -48,6 +45,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     handleClose: () => {
       dispatch(removeSensor(sensorId));
+      dispatch(removeSensorState(sensorId));
     },
   };
 };
@@ -56,11 +54,6 @@ class AlarmSensorComponent extends Component {
   componentWillMount() {
     const { channel, handleComponentMount } = this.props;
     handleComponentMount(channel);
-  }
-
-  componentWillUnmount() {
-    const { handleComponentUnmount } = this.props;
-    handleComponentUnmount();
   }
 
   render() {
@@ -125,7 +118,6 @@ AlarmSensorComponent.propTypes = {
   channel: PropTypes.number.isRequired,
   sliderDisabled: PropTypes.bool,
   handleComponentMount: PropTypes.func.isRequired,
-  handleComponentUnmount: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
   handleEdit: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
