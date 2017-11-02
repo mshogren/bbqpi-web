@@ -4,7 +4,7 @@ import Slider from 'rc-slider';
 import './TemperatureSlider.css';
 
 const SliderHandle = function SliderHandle(props) {
-  const Handle = Slider.Handle;
+  const { Handle } = Slider;
   const { value, offset } = props;
 
   const handleStyle = {

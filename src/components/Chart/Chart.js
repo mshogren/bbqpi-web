@@ -84,11 +84,14 @@ class Chart extends Component {
 
     let title = 'Grill Temperature';
     const channel = Number(this.props.match.params.channel);
-    const sensorKey = Object.keys(this.props.alarmSensors).find(key => (
-      this.props.alarmSensors[key].channel === channel
-    ));
 
-    if (sensorKey) title = this.props.alarmSensors[sensorKey].name;
+    if (this.props.alarmSensors) {
+      const sensorKey = Object.keys(this.props.alarmSensors).find(key => (
+        this.props.alarmSensors[key].channel === channel
+      ));
+
+      if (sensorKey) title = this.props.alarmSensors[sensorKey].name;
+    }
 
     const chartProps = {
       // chartPackages: ['corechart', 'line'],
@@ -116,7 +119,7 @@ class Chart extends Component {
       height: '400px',
     };
 
-    const alarmSensors = this.props.alarmSensors;
+    const { alarmSensors } = this.props;
     const isSensorSetupOnChannel = channel === 0
       || (alarmSensors
         && Object.keys(alarmSensors).every(key => alarmSensors[key].channel === channel));
