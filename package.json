@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "@commitlint/cli": "^4.3.0",
+    "@commitlint/cli": "^5.0.1",
     "@commitlint/config-angular": "^4.3.0",
     "babel-preset-airbnb": "^2.4.0",
     "codecov": "^3.0.0",
@@ -19,7 +19,7 @@
     "source-map-explorer": "^1.5.0"
   },
   "dependencies": {
-    "bootstrap": "^4.0.0-alpha.6",
+    "bootstrap": "^4.0.0-beta.2",
     "firebase": "^4.6.2",
     "prop-types": "^15.6.0",
     "rc-slider": "^8.4.0",
