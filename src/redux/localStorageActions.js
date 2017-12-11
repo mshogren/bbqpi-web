@@ -19,4 +19,3 @@ export const saveDeviceKey = (state) => {
     // Ignore write errors
   }
 };
-

@@ -7,13 +7,13 @@ import DeviceDialog from '../../components/DeviceDialog/DeviceDialog';
 import { setSelectedDevice } from '../../redux/modules/device';
 import { toggleDeviceDialog } from '../../redux/modules/ui';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isDialogOpen: state.ui.isDeviceDialogOpen,
   selectedDevice: state.device.selected,
   availableDevices: state.device.available,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   handleComponentMount: () => {
     dispatch(toggleDeviceDialog());
   },
@@ -48,7 +48,7 @@ class Device extends Component {
       handleClick,
     };
 
-    let Display = (<div />);
+    let Display = <div />;
 
     if (selectedDevice) {
       Display = (

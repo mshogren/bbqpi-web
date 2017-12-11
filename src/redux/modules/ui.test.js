@@ -9,10 +9,15 @@ test('reducer returns initial state', () => {
 
 [true, false].forEach((sensorDialogState) => {
   test('reducer toggles the device dialog state to true', () => {
-    expect(reducer({
-      isDeviceDialogOpen: false,
-      isSensorDialogOpen: sensorDialogState,
-    }, toggleDeviceDialog())).toEqual({
+    expect(
+      reducer(
+        {
+          isDeviceDialogOpen: false,
+          isSensorDialogOpen: sensorDialogState,
+        },
+        toggleDeviceDialog()
+      )
+    ).toEqual({
       isDeviceDialogOpen: true,
       isSensorDialogOpen: sensorDialogState,
     });
@@ -21,10 +26,15 @@ test('reducer returns initial state', () => {
 
 [true, false].forEach((sensorDialogState) => {
   test('reducer toggles the device dialog state to false', () => {
-    expect(reducer({
-      isDeviceDialogOpen: true,
-      isSensorDialogOpen: sensorDialogState,
-    }, toggleDeviceDialog())).toEqual({
+    expect(
+      reducer(
+        {
+          isDeviceDialogOpen: true,
+          isSensorDialogOpen: sensorDialogState,
+        },
+        toggleDeviceDialog()
+      )
+    ).toEqual({
       isDeviceDialogOpen: false,
       isSensorDialogOpen: sensorDialogState,
     });
@@ -33,10 +43,15 @@ test('reducer returns initial state', () => {
 
 [true, false].forEach((deviceDialogState) => {
   test('reducer toggles the sensor dialog state to true', () => {
-    expect(reducer({
-      isDeviceDialogOpen: deviceDialogState,
-      isSensorDialogOpen: false,
-    }, toggleSensorDialog())).toEqual({
+    expect(
+      reducer(
+        {
+          isDeviceDialogOpen: deviceDialogState,
+          isSensorDialogOpen: false,
+        },
+        toggleSensorDialog()
+      )
+    ).toEqual({
       isDeviceDialogOpen: deviceDialogState,
       isSensorDialogOpen: true,
     });
@@ -45,10 +60,15 @@ test('reducer returns initial state', () => {
 
 [true, false].forEach((deviceDialogState) => {
   test('reducer toggles the sensor dialog state to false', () => {
-    expect(reducer({
-      isDeviceDialogOpen: deviceDialogState,
-      isSensorDialogOpen: true,
-    }, toggleSensorDialog())).toEqual({
+    expect(
+      reducer(
+        {
+          isDeviceDialogOpen: deviceDialogState,
+          isSensorDialogOpen: true,
+        },
+        toggleSensorDialog()
+      )
+    ).toEqual({
       isDeviceDialogOpen: deviceDialogState,
       isSensorDialogOpen: false,
     });

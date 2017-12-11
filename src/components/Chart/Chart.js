@@ -7,9 +7,7 @@ import { Redirect } from 'react-router-dom';
 import Close from '../Close/Close';
 import { getBaseRef } from '../../redux/dbActions';
 
-const mapStateToProps = state => (
-  state
-);
+const mapStateToProps = (state) => state;
 
 class Chart extends Component {
   constructor(props) {
@@ -22,7 +20,8 @@ class Chart extends Component {
   componentDidMount() {
     const channel = Number(this.props.match.params.channel);
 
-    const initialRef = getBaseRef(this.props).child('state')
+    const initialRef = getBaseRef(this.props)
+      .child('state')
       .orderByChild('channel');
 
     let maxKey;
@@ -32,8 +31,15 @@ class Chart extends Component {
       let lastTargetTemperature;
       snapshot.forEach((child) => {
         maxKey = child.key;
-        const { timestamp, currentTemperature, targetTemperature } = child.val();
-        if ((timestamp >= maxTime + 30000) || (targetTemperature !== lastTargetTemperature)) {
+        const {
+          timestamp,
+          currentTemperature,
+          targetTemperature,
+        } = child.val();
+        if (
+          timestamp >= maxTime + 30000 ||
+          targetTemperature !== lastTargetTemperature
+        ) {
           maxTime = timestamp;
           lastTargetTemperature = targetTemperature;
           const time = new Date(timestamp);
@@ -42,10 +48,7 @@ class Chart extends Component {
       });
 
       this.setState({
-        data: [
-          ...this.state.data,
-          ...rows,
-        ],
+        data: [...this.state.data, ...rows],
         maxTime,
       });
 
@@ -57,7 +60,10 @@ class Chart extends Component {
           currentTemperature: currentTemperature2,
           targetTemperature: targetTemperature2,
         } = snapshot2.val();
-        if ((timestamp2 >= maxTime + 30000) || (targetTemperature2 !== lastTargetTemperature)) {
+        if (
+          timestamp2 >= maxTime + 30000 ||
+          targetTemperature2 !== lastTargetTemperature
+        ) {
           maxTime = timestamp2;
           lastTargetTemperature = targetTemperature2;
           const time2 = new Date(timestamp2);
@@ -79,16 +85,16 @@ class Chart extends Component {
 
   render() {
     if (this.state.data.length <= 0) {
-      return (<div />);
+      return <div />;
     }
 
     let title = 'Grill Temperature';
     const channel = Number(this.props.match.params.channel);
 
     if (this.props.alarmSensors) {
-      const sensorKey = Object.keys(this.props.alarmSensors).find(key => (
-        this.props.alarmSensors[key].channel === channel
-      ));
+      const sensorKey = Object.keys(this.props.alarmSensors).find(
+        (key) => this.props.alarmSensors[key].channel === channel
+      );
 
       if (sensorKey) title = this.props.alarmSensors[sensorKey].name;
     }
@@ -109,7 +115,7 @@ class Chart extends Component {
           title: 'Time',
           format: 'HH:mm',
           viewWindow: {
-            min: new Date(this.state.maxTime - (1000 * 60 * 60 * 2)),
+            min: new Date(this.state.maxTime - 1000 * 60 * 60 * 2),
             max: new Date(this.state.maxTime),
           },
         },
@@ -120,9 +126,12 @@ class Chart extends Component {
     };
 
     const { alarmSensors } = this.props;
-    const isSensorSetupOnChannel = channel === 0
-      || (alarmSensors
-        && Object.keys(alarmSensors).every(key => alarmSensors[key].channel === channel));
+    const isSensorSetupOnChannel =
+      channel === 0 ||
+      (alarmSensors &&
+        Object.keys(alarmSensors).every(
+          (key) => alarmSensors[key].channel === channel
+        ));
 
     return isSensorSetupOnChannel ? (
       <Container>
@@ -138,7 +147,9 @@ class Chart extends Component {
           <ChartComponent {...chartProps} />
         </Row>
       </Container>
-    ) : (<Redirect to="/" />);
+    ) : (
+      <Redirect to="/" />
+    );
   }
 }
 

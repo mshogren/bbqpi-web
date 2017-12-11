@@ -8,7 +8,10 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /* eslint-enable no-underscore-dangle */
 
 export default function configureStore() {
-  const store = createStore(reducer, composeEnhancers(applyMiddleware(thunkMiddleware)));
+  const store = createStore(
+    reducer,
+    composeEnhancers(applyMiddleware(thunkMiddleware))
+  );
 
   store.subscribe(() => {
     saveDeviceKey(store.getState());

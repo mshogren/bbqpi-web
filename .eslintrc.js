@@ -7,7 +7,10 @@ module.exports = {
     "es6": true,
     "jest": true
   },
-  "extends": "airbnb",
+  "extends": [
+    "airbnb",
+    "prettier"
+  ],
   "parserOptions": {
     "ecmaVersion": 6,
     "ecmaFeatures": {
@@ -18,12 +21,14 @@ module.exports = {
     "sourceType": "module"
   },
   "plugins": [
-    "react"
+    "react",
+    "prettier"
   ],
   "rules": {
     "indent": [
       "error",
-      2
+      2,
+      { "SwitchCase": 1 }
     ],
     "linebreak-style": [
       "error",

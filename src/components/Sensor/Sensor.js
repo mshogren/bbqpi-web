@@ -35,11 +35,9 @@ const Sensor = function Sensor(props) {
     <Container style={{ borderBottom: '1px solid #eeeeee' }}>
       <Row style={{ paddingTop: '0.5em', paddingBottom: '0.25em' }}>
         <Col xs={11}>
-          <h5>{ title }</h5>
+          <h5>{title}</h5>
         </Col>
-        <Col xs={1}>
-          {cornerIcon}
-        </Col>
+        <Col xs={1}>{cornerIcon}</Col>
       </Row>
       <Row style={{ paddingBottom: '0.5em' }}>
         <Col xs={2}>
@@ -52,9 +50,7 @@ const Sensor = function Sensor(props) {
         </Col>
       </Row>
       <Row style={{ paddingBottom: '0.5em' }}>
-        <Col xs={2}>
-          { icon }
-        </Col>
+        <Col xs={2}>{icon}</Col>
         <Col xs={9}>
           <TemperatureSlider {...targetSliderProps} />
         </Col>

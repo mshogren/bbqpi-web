@@ -1,4 +1,10 @@
-import reducer, { initialize, addSensor, updateSensor, removeSensor, listenForChanges } from './alarmSensors';
+import reducer, {
+  initialize,
+  addSensor,
+  updateSensor,
+  removeSensor,
+  listenForChanges,
+} from './alarmSensors';
 import { getBaseRef } from '../dbActions';
 
 jest.mock('../dbActions', () => ({
@@ -14,10 +20,15 @@ test('reducer initializes null state to empty object', () => {
 });
 
 test('reducer does not reinitialize state to empty object', () => {
-  expect(reducer({
-    key1: { config: 'config1' },
-    key2: { config: 'config2' },
-  }, initialize())).toEqual({
+  expect(
+    reducer(
+      {
+        key1: { config: 'config1' },
+        key2: { config: 'config2' },
+      },
+      initialize()
+    )
+  ).toEqual({
     key1: { config: 'config1' },
     key2: { config: 'config2' },
   });
@@ -30,10 +41,15 @@ test('reducer adds a sensor to a null state', () => {
 });
 
 test('reducer adds a sensor to an existing collection', () => {
-  expect(reducer({
-    key1: { config: 'config1' },
-    key2: { config: 'config2' },
-  }, addSensor('key3', { config: 'config' }))).toEqual({
+  expect(
+    reducer(
+      {
+        key1: { config: 'config1' },
+        key2: { config: 'config2' },
+      },
+      addSensor('key3', { config: 'config' })
+    )
+  ).toEqual({
     key1: { config: 'config1' },
     key2: { config: 'config2' },
     key3: { config: 'config' },
@@ -41,35 +57,55 @@ test('reducer adds a sensor to an existing collection', () => {
 });
 
 test('reducer replaces a sensor in an existing collection', () => {
-  expect(reducer({
-    key1: { config: 'config1' },
-    key2: { config: 'config2' },
-  }, updateSensor('key1', { config: 'config' }))).toEqual({
+  expect(
+    reducer(
+      {
+        key1: { config: 'config1' },
+        key2: { config: 'config2' },
+      },
+      updateSensor('key1', { config: 'config' })
+    )
+  ).toEqual({
     key1: { config: 'config' },
     key2: { config: 'config2' },
   });
 });
 
 test('reducer removes a sensor state', () => {
-  expect(reducer({
-    key1: { config: 'config1' },
-    key2: { config: 'config2' },
-  }, removeSensor('key1'))).toEqual({
+  expect(
+    reducer(
+      {
+        key1: { config: 'config1' },
+        key2: { config: 'config2' },
+      },
+      removeSensor('key1')
+    )
+  ).toEqual({
     key2: { config: 'config2' },
   });
 });
 
 test('reducer removes the last sensor state', () => {
-  expect(reducer({
-    key1: { config: 'config1' },
-  }, removeSensor('key1'))).toEqual({});
+  expect(
+    reducer(
+      {
+        key1: { config: 'config1' },
+      },
+      removeSensor('key1')
+    )
+  ).toEqual({});
 });
 
 test('reducer does nothing if key to remove does not exist', () => {
-  expect(reducer({
-    key1: { config: 'config1' },
-    key2: { config: 'config2' },
-  }, removeSensor('key3'))).toEqual({
+  expect(
+    reducer(
+      {
+        key1: { config: 'config1' },
+        key2: { config: 'config2' },
+      },
+      removeSensor('key3')
+    )
+  ).toEqual({
     key1: { config: 'config1' },
     key2: { config: 'config2' },
   });

@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import Sensor from '../../components/Sensor/Sensor';
 import Fan from '../../components/Fan/Fan';
 import Gear from '../../components/Gear/Gear';
-import { listenForSensorChanges, removeSensorState } from '../../redux/modules/currentSensorState';
+import {
+  listenForSensorChanges,
+  removeSensorState,
+} from '../../redux/modules/currentSensorState';
 import { setTargetTemperature } from '../../redux/dbActions';
 import { toggleDeviceDialog } from '../../redux/modules/ui';
 
@@ -18,7 +21,7 @@ const mapStateToProps = (state) => {
 
     return {
       title: 'Grill Temperature',
-      icon: (<Fan level={fanLevel} />),
+      icon: <Fan level={fanLevel} />,
       channel: 0,
       max: 450,
       currentTemperature,
@@ -29,7 +32,7 @@ const mapStateToProps = (state) => {
   return { loading: true };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   handleComponentMount: () => {
     dispatch(listenForSensorChanges('grillSensor', 0));
   },
@@ -58,13 +61,9 @@ class TargetSensorComponent extends Component {
   render() {
     const { loading, handleToggle } = this.props;
 
-    const gear = (<Gear handleClick={handleToggle} />);
+    const gear = <Gear handleClick={handleToggle} />;
 
-    return loading ? (
-      <div />
-    ) : (
-      <Sensor {...this.props} cornerIcon={gear} />
-    );
+    return loading ? <div /> : <Sensor {...this.props} cornerIcon={gear} />;
   }
 }
 
@@ -79,6 +78,8 @@ TargetSensorComponent.defaultProps = {
   loading: false,
 };
 
-const TargetSensor = connect(mapStateToProps, mapDispatchToProps)(TargetSensorComponent);
+const TargetSensor = connect(mapStateToProps, mapDispatchToProps)(
+  TargetSensorComponent
+);
 
 export default TargetSensor;

@@ -10,11 +10,11 @@ import { isReady } from '../../redux/uiActions';
 import { login } from '../../redux/modules/auth';
 import { getAvailableDevices } from '../../redux/modules/device';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   ready: isReady(state),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   handleComponentMount: () => {
     dispatch(login());
   },

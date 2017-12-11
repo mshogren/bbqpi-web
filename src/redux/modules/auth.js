@@ -17,28 +17,28 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-  case SET_USER_ID:
-    return { authenticated: true, userId: action.payload };
+    case SET_USER_ID:
+      return { authenticated: true, userId: action.payload };
 
-  default:
-    return state;
+    default:
+      return state;
   }
 }
 
-export const setUserId = userId => ({
+export const setUserId = (userId) => ({
   type: SET_USER_ID,
   payload: userId,
 });
 
-export const login = () => (
-  (dispatch) => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        firebase.auth()
-          .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-          .then(() => {}, handleError);
-      } else {
-        dispatch(setUserId(user.uid));
-      }
-    });
+export const login = () => (dispatch) => {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+      firebase
+        .auth()
+        .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+        .then(() => {}, handleError);
+    } else {
+      dispatch(setUserId(user.uid));
+    }
   });
+};

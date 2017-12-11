@@ -16,7 +16,9 @@ test('loadDeviceKey returns undefined if the device key is null', () => {
 });
 
 test('loadDeviceKey returns undefined if there is an exception', () => {
-  window.localStorage.getItem.mockImplementationOnce(() => { throw new Error('error'); });
+  window.localStorage.getItem.mockImplementationOnce(() => {
+    throw new Error('error');
+  });
 
   expect(loadDeviceKey()).not.toBeDefined();
 });
@@ -32,7 +34,10 @@ test('saveDeviceKey writes to local storage if device key is defined', () => {
 
   saveDeviceKey(state);
 
-  expect(window.localStorage.setItem).toHaveBeenCalledWith('deviceKey', 'selected');
+  expect(window.localStorage.setItem).toHaveBeenCalledWith(
+    'deviceKey',
+    'selected'
+  );
 });
 
 test('saveDeviceKey does nothing if device key is undefined', () => {
@@ -56,10 +61,14 @@ test('saveDeviceKey ignores exceptions', () => {
     },
   };
 
-  window.localStorage.setItem = jest.fn(() => { throw new Error('error'); });
+  window.localStorage.setItem = jest.fn(() => {
+    throw new Error('error');
+  });
 
   saveDeviceKey(state);
 
-  expect(window.localStorage.setItem).toHaveBeenCalledWith('deviceKey', 'selected');
+  expect(window.localStorage.setItem).toHaveBeenCalledWith(
+    'deviceKey',
+    'selected'
+  );
 });
-

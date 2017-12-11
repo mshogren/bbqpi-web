@@ -1,6 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Container, Row, ButtonGroup, Button } from 'reactstrap';
+import {
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Container,
+  Row,
+  ButtonGroup,
+  Button,
+} from 'reactstrap';
 
 const SensorDialog = function SensorDialog(props) {
   const { isDialogOpen, availableChannels, handleToggle, handleClick } = props;
@@ -19,9 +28,7 @@ const SensorDialog = function SensorDialog(props) {
 
     return (
       <Button {...buttonProps}>
-        <h5>
-          {label}
-        </h5>
+        <h5>{label}</h5>
       </Button>
     );
   });
@@ -31,13 +38,9 @@ const SensorDialog = function SensorDialog(props) {
       <ModalHeader toggle={handleToggle}>Add Sensor</ModalHeader>
       <ModalBody>
         <Container>
+          <Row>Which channel is the sensor plugged into?</Row>
           <Row>
-            Which channel is the sensor plugged into?
-          </Row>
-          <Row>
-            <ButtonGroup>
-              {buttons}
-            </ButtonGroup>
+            <ButtonGroup>{buttons}</ButtonGroup>
           </Row>
         </Container>
       </ModalBody>

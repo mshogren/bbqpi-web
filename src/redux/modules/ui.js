@@ -8,20 +8,20 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-  case TOGGLE_DEVICE_DIALOG:
-    return {
-      ...state,
-      isDeviceDialogOpen: !state.isDeviceDialogOpen,
-    };
+    case TOGGLE_DEVICE_DIALOG:
+      return {
+        ...state,
+        isDeviceDialogOpen: !state.isDeviceDialogOpen,
+      };
 
-  case TOGGLE_SENSOR_DIALOG:
-    return {
-      ...state,
-      isSensorDialogOpen: !state.isSensorDialogOpen,
-    };
+    case TOGGLE_SENSOR_DIALOG:
+      return {
+        ...state,
+        isSensorDialogOpen: !state.isSensorDialogOpen,
+      };
 
-  default:
-    return state;
+    default:
+      return state;
   }
 }
 
@@ -32,4 +32,3 @@ export const toggleDeviceDialog = () => ({
 export const toggleSensorDialog = () => ({
   type: TOGGLE_SENSOR_DIALOG,
 });
-

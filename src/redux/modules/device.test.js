@@ -1,4 +1,8 @@
-import reducer, { setSelectedDevice, setAvailableDevices, getAvailableDevices } from './device';
+import reducer, {
+  setSelectedDevice,
+  setAvailableDevices,
+  getAvailableDevices,
+} from './device';
 import { loadDeviceKey } from '../localStorageActions';
 import { getDeviceRef } from '../dbActions';
 
@@ -19,45 +23,45 @@ test('reducer returns initial state', () => {
 });
 
 test('reducer sets the selected device', () => {
-  expect(reducer({
-    selected: 'deviceKey',
-    available: [
-      'deviceKey1',
-      'deviceKey2',
-    ],
-  }, setSelectedDevice('newDeviceKey'))).toEqual({
+  expect(
+    reducer(
+      {
+        selected: 'deviceKey',
+        available: ['deviceKey1', 'deviceKey2'],
+      },
+      setSelectedDevice('newDeviceKey')
+    )
+  ).toEqual({
     selected: 'newDeviceKey',
-    available: [
-      'deviceKey1',
-      'deviceKey2',
-    ],
+    available: ['deviceKey1', 'deviceKey2'],
   });
 });
 
 test('reducer sets the available devices', () => {
-  expect(reducer({
+  expect(
+    reducer(
+      {
+        selected: 'deviceKey',
+        available: ['deviceKey1', 'deviceKey2'],
+      },
+      setAvailableDevices(['deviceKey3', 'deviceKey4'])
+    )
+  ).toEqual({
     selected: 'deviceKey',
-    available: [
-      'deviceKey1',
-      'deviceKey2',
-    ],
-  }, setAvailableDevices(['deviceKey3', 'deviceKey4']))).toEqual({
-    selected: 'deviceKey',
-    available: [
-      'deviceKey3',
-      'deviceKey4',
-    ],
+    available: ['deviceKey3', 'deviceKey4'],
   });
 });
 
 test('reducer sets the available devices to empty object', () => {
-  expect(reducer({
-    selected: 'deviceKey',
-    available: [
-      'deviceKey1',
-      'deviceKey2',
-    ],
-  }, setAvailableDevices())).toEqual({
+  expect(
+    reducer(
+      {
+        selected: 'deviceKey',
+        available: ['deviceKey1', 'deviceKey2'],
+      },
+      setAvailableDevices()
+    )
+  ).toEqual({
     selected: 'deviceKey',
     available: {},
   });

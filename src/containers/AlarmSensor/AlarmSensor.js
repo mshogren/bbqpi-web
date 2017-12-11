@@ -5,8 +5,16 @@ import Sensor from '../../components/Sensor/Sensor';
 import Bell from '../../components/Bell/Bell';
 import InlineEditor from '../../components/InlineEditor/InlineEditor';
 import Close from '../../components/Close/Close';
-import { listenForSensorChanges, removeSensorState } from '../../redux/modules/currentSensorState';
-import { setAlarmName, setAlarmEnabled, setAlarmTemperature, removeSensor } from '../../redux/dbActions';
+import {
+  listenForSensorChanges,
+  removeSensorState,
+} from '../../redux/modules/currentSensorState';
+import {
+  setAlarmName,
+  setAlarmEnabled,
+  setAlarmTemperature,
+  removeSensor,
+} from '../../redux/dbActions';
 
 const mapStateToProps = (state, ownProps) => {
   const { sensorId } = ownProps;
@@ -68,9 +76,7 @@ class AlarmSensorComponent extends Component {
     } = this.props;
 
     if (loading) {
-      return (
-        <div />
-      );
+      return <div />;
     }
 
     const inlineEditorProps = {
@@ -93,11 +99,9 @@ class AlarmSensorComponent extends Component {
       handleClick,
     };
 
-    const bell = (
-      <Bell {...bellProps} />
-    );
+    const bell = <Bell {...bellProps} />;
 
-    const close = (<Close handleClick={handleClose} />);
+    const close = <Close handleClick={handleClose} />;
 
     const sensorProps = {
       ...this.props,
@@ -106,9 +110,7 @@ class AlarmSensorComponent extends Component {
       icon: bell,
     };
 
-    return (
-      <Sensor {...sensorProps} />
-    );
+    return <Sensor {...sensorProps} />;
   }
 }
 
@@ -128,4 +130,6 @@ AlarmSensorComponent.defaultProps = {
   sliderDisabled: false,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AlarmSensorComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  AlarmSensorComponent
+);

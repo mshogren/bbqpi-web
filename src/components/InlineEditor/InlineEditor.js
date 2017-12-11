@@ -8,9 +8,7 @@ class InlineEditor extends Component {
   }
 
   render() {
-    return (
-      <RIEInput {...this.props} />
-    );
+    return <RIEInput {...this.props} />;
   }
 }
 

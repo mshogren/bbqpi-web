@@ -18,7 +18,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   handleComponentMount: () => {
     dispatch(listenForChanges());
   },
@@ -52,25 +52,34 @@ class AlarmSensorsComponent extends Component {
       const SortableItem = SortableElement(({ value }) => <div>{value}</div>);
       const SortableList = SortableContainer(({ items }) => (
         <div>
-          {items.map((value, index) =>
-            <SortableItem key={value.props.sensorId} index={index} value={value} />,
-          )}
+          {items.map((value, index) => (
+            <SortableItem
+              key={value.props.sensorId}
+              index={index}
+              value={value}
+            />
+          ))}
         </div>
       ));
 
-      const sensorIds = Object.keys(alarmSensors).sort((a, b) => (
-        alarmSensors[a].order - alarmSensors[b].order
-      ));
+      const sensorIds = Object.keys(alarmSensors).sort(
+        (a, b) => alarmSensors[a].order - alarmSensors[b].order
+      );
 
-      const sensors = sensorIds.map(key => (
+      const sensors = sensorIds.map((key) => (
         <AlarmSensor sensorId={key} {...alarmSensors[key]} />
       ));
 
-      const addButton = sensorIds.length < 3 ? <Add handleClick={handleDialogToggle} /> : <div />;
+      const addButton =
+        sensorIds.length < 3 ? (
+          <Add handleClick={handleDialogToggle} />
+        ) : (
+          <div />
+        );
 
-      const availableChannels = sensorIds.map(key => (
-        alarmSensors[key].channel
-      ));
+      const availableChannels = sensorIds.map(
+        (key) => alarmSensors[key].channel
+      );
 
       const dialogProps = {
         isDialogOpen,
@@ -81,16 +90,18 @@ class AlarmSensorsComponent extends Component {
 
       return (
         <div>
-          <SortableList items={sensors} pressDelay={100} onSortEnd={handleReorder} />
+          <SortableList
+            items={sensors}
+            pressDelay={100}
+            onSortEnd={handleReorder}
+          />
           {addButton}
           <SensorDialog {...dialogProps} />
         </div>
       );
     }
 
-    return (
-      <div />
-    );
+    return <div />;
   }
 }
 
@@ -107,6 +118,8 @@ AlarmSensorsComponent.defaultProps = {
   alarmSensors: undefined,
 };
 
-const AlarmSensors = connect(mapStateToProps, mapDispatchToProps)(AlarmSensorsComponent);
+const AlarmSensors = connect(mapStateToProps, mapDispatchToProps)(
+  AlarmSensorsComponent
+);
 
 export default AlarmSensors;

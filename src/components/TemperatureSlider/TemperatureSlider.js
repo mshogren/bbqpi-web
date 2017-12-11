@@ -11,7 +11,11 @@ const SliderHandle = function SliderHandle(props) {
     left: `${offset}%`,
   };
 
-  return (<div className="my-rc-slider-handle" style={handleStyle}>{value}°F<Handle value={value} /></div>);
+  return (
+    <div className="my-rc-slider-handle" style={handleStyle}>
+      {value}°F<Handle value={value} />
+    </div>
+  );
 };
 
 SliderHandle.propTypes = {
@@ -20,9 +24,7 @@ SliderHandle.propTypes = {
 };
 
 const TemperatureSlider = function TemperatureSlider(props) {
-  return (
-    <Slider {...props} handle={SliderHandle} />
-  );
+  return <Slider {...props} handle={SliderHandle} />;
 };
 
 TemperatureSlider.propTypes = {

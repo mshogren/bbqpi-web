@@ -44,7 +44,7 @@
   font-size: 14px;
   text-align: center;
   cursor: pointer;
-  border: 2px solid #abe2fb
+  border: 2px solid #abe2fb;
 }
 .rc-slider-handle:hover {
   border-color: #57c5f7;

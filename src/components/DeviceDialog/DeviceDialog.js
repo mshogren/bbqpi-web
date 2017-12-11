@@ -1,9 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Container, Row, ButtonGroup, Button } from 'reactstrap';
+import {
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Container,
+  Row,
+  ButtonGroup,
+  Button,
+} from 'reactstrap';
 
 const DeviceDialog = function DeviceDialog(props) {
-  const { isDialogOpen, availableDevices, selectedDevice, handleToggle, handleClick } = props;
+  const {
+    isDialogOpen,
+    availableDevices,
+    selectedDevice,
+    handleToggle,
+    handleClick,
+  } = props;
 
   const deviceKeys = availableDevices ? Object.keys(availableDevices) : [];
 
@@ -33,7 +48,9 @@ const DeviceDialog = function DeviceDialog(props) {
     };
 
     return (
-      <Button {...buttonProps}>{availableDevices[deviceKey].name || 'New Device'}</Button>
+      <Button {...buttonProps}>
+        {availableDevices[deviceKey].name || 'New Device'}
+      </Button>
     );
   });
 
@@ -42,13 +59,9 @@ const DeviceDialog = function DeviceDialog(props) {
       <ModalHeader toggle={handleToggleFinal}>Choose Device</ModalHeader>
       <ModalBody>
         <Container>
+          <Row>Please choose a BBQ-Pi device?</Row>
           <Row>
-            Please choose a BBQ-Pi device?
-          </Row>
-          <Row>
-            <ButtonGroup vertical>
-              {buttons}
-            </ButtonGroup>
+            <ButtonGroup vertical>{buttons}</ButtonGroup>
           </Row>
         </Container>
       </ModalBody>

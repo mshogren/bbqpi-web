@@ -38,4 +38,3 @@ describe('isReady when authenticated', () => {
     });
   });
 });
-

@@ -18,29 +18,42 @@ test('reducer returns initial state', () => {
 });
 
 test('reducer returns state with user id', () => {
-  expect(reducer({
-    authenticated: false,
-  }, setUserId('userId'))).toEqual({
+  expect(
+    reducer(
+      {
+        authenticated: false,
+      },
+      setUserId('userId')
+    )
+  ).toEqual({
     authenticated: true,
     userId: 'userId',
   });
 });
 
 test('reducer returns state with user id', () => {
-  expect(reducer({
-    authenticated: true,
-    userId: 'oldUserId',
-  }, setUserId('userId'))).toEqual({
+  expect(
+    reducer(
+      {
+        authenticated: true,
+        userId: 'oldUserId',
+      },
+      setUserId('userId')
+    )
+  ).toEqual({
     authenticated: true,
     userId: 'userId',
   });
 });
 
 test('login calls sign in methods if user not logged in', () => {
-  const signInWithPopup = jest.fn(() => (new Promise((resolve) => {
-    resolve();
-  })));
-  const onAuthStateChanged = jest.fn(callback => callback(null));
+  const signInWithPopup = jest.fn(
+    () =>
+      new Promise((resolve) => {
+        resolve();
+      })
+  );
+  const onAuthStateChanged = jest.fn((callback) => callback(null));
 
   firebase.auth.mockImplementation(() => ({
     onAuthStateChanged,
@@ -61,7 +74,7 @@ test('login calls sign in methods if user not logged in', () => {
 });
 
 test('login dispatches setUserId action if user is logged in', () => {
-  const onAuthStateChanged = jest.fn(callback => callback({ uid: 'userId' }));
+  const onAuthStateChanged = jest.fn((callback) => callback({ uid: 'userId' }));
 
   firebase.auth.mockImplementation(() => ({
     onAuthStateChanged,

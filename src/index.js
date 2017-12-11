@@ -7,7 +7,8 @@ import App from './containers/App/App';
 if ('serviceWorker' in navigator && 'PushManager' in window) {
   console.log('Service Worker and Push is supported');
 
-  navigator.serviceWorker.register('/sw.js', { scope: '/' })
+  navigator.serviceWorker
+    .register('/sw.js', { scope: '/' })
     .then((swReg) => {
       console.log('Service Worker is registered', swReg);
     })
@@ -24,5 +25,5 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );

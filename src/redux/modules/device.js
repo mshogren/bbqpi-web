@@ -10,38 +10,36 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-  case SET_SELECTED_DEVICE:
-    return {
-      ...state,
-      selected: action.payload,
-    };
+    case SET_SELECTED_DEVICE:
+      return {
+        ...state,
+        selected: action.payload,
+      };
 
-  case SET_AVAILABLE_DEVICES:
-    return {
-      ...state,
-      available: action.payload || {},
-    };
+    case SET_AVAILABLE_DEVICES:
+      return {
+        ...state,
+        available: action.payload || {},
+      };
 
-  default:
-    return state;
+    default:
+      return state;
   }
 }
 
-export const setSelectedDevice = deviceKey => ({
+export const setSelectedDevice = (deviceKey) => ({
   type: SET_SELECTED_DEVICE,
   payload: deviceKey,
 });
 
-export const setAvailableDevices = deviceKeys => ({
+export const setAvailableDevices = (deviceKeys) => ({
   type: SET_AVAILABLE_DEVICES,
   payload: deviceKeys,
 });
 
-export const getAvailableDevices = () => (
-  (dispatch, getState) => {
-    const state = getState();
-    getDeviceRef(state).once('value', (snapshot) => {
-      dispatch(setAvailableDevices(snapshot.val()));
-    });
-  }
-);
+export const getAvailableDevices = () => (dispatch, getState) => {
+  const state = getState();
+  getDeviceRef(state).once('value', (snapshot) => {
+    dispatch(setAvailableDevices(snapshot.val()));
+  });
+};
