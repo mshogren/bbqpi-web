@@ -13,7 +13,7 @@
     "babel-preset-airbnb": "^2.4.0",
     "codecov": "^3.0.0",
     "cz-conventional-changelog": "^2.1.0",
-    "eslint": "^4.15.0",
+    "eslint": "^4.16.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-flowtype": "^2.41.0",
@@ -25,7 +25,7 @@
     "lint-staged": "^6.0.1",
     "prettier": "^1.10.2",
     "react-scripts": "^1.1.0",
-    "semantic-release": "^11.0.2",
+    "semantic-release": "^12.2.4",
     "source-map-explorer": "^1.5.0"
   },
   "dependencies": {
