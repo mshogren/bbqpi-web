@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { RIEInput } from 'riek';
+import { RIEInput } from '@attently/riek';
 
 class InlineEditor extends Component {
   shouldComponentUpdate(nextProps) {
