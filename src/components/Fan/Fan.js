@@ -14,7 +14,7 @@ const Fan = function Fan(props) {
   };
 
   const on = level > 0;
-  const period = 800 - 400 * level / 1023;
+  const period = 800 - (400 * level) / 1023;
   const imgStyle = on
     ? { animation: `Fan-spin infinite ${period}ms linear` }
     : {};

@@ -130,6 +130,7 @@ AlarmSensorComponent.defaultProps = {
   sliderDisabled: false,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  AlarmSensorComponent
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AlarmSensorComponent);

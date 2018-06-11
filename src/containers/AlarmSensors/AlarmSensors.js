@@ -118,8 +118,9 @@ AlarmSensorsComponent.defaultProps = {
   alarmSensors: undefined,
 };
 
-const AlarmSensors = connect(mapStateToProps, mapDispatchToProps)(
-  AlarmSensorsComponent
-);
+const AlarmSensors = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AlarmSensorsComponent);
 
 export default AlarmSensors;

@@ -78,8 +78,9 @@ TargetSensorComponent.defaultProps = {
   loading: false,
 };
 
-const TargetSensor = connect(mapStateToProps, mapDispatchToProps)(
-  TargetSensorComponent
-);
+const TargetSensor = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TargetSensorComponent);
 
 export default TargetSensor;

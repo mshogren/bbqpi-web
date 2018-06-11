@@ -82,4 +82,7 @@ Device.defaultProps = {
   availableDevices: undefined,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Device);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Device);
