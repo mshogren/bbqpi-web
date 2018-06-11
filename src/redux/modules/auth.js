@@ -1,4 +1,5 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import { handleError } from '../uiActions';
 
 const SET_USER_ID = 'bbqpi/auth/SET_USER_ID';
