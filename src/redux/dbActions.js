@@ -6,6 +6,8 @@ import { processSubscriptions, getSubscriptionId } from './subscriptionActions';
 export const getDeviceRef = (state) =>
   firebase.database().ref(`users/${state.auth.userId}/device`);
 
+/* eslint no-unused-vars: ["error", { "args": "after-used" }] */
+
 export const getBaseRef = (state) =>
   firebase
     .database()
