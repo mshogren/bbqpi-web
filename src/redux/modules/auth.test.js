@@ -1,7 +1,7 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import reducer, { setUserId, login } from './auth';
 
-jest.mock('firebase', () => {
+jest.mock('firebase/app', () => {
   const initializeApp = jest.fn();
   const auth = jest.fn();
 
