@@ -59,7 +59,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 class AlarmSensorComponent extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { channel, handleComponentMount } = this.props;
     handleComponentMount(channel);
   }

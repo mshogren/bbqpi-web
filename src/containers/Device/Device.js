@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Device extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { isDialogOpen, selectedDevice, handleComponentMount } = this.props;
     if (!selectedDevice && !isDialogOpen) handleComponentMount();
   }

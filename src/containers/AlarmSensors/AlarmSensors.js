@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class AlarmSensorsComponent extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { handleComponentMount } = this.props;
     handleComponentMount();
   }

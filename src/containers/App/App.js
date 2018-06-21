@@ -24,12 +24,12 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class App extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { handleComponentMount } = this.props;
     handleComponentMount();
   }
 
-  componentWillReceiveProps() {
+  componentDidUpdate() {
     const { ready, handleComponentWillReceiveProps } = this.props;
     if (!ready) handleComponentWillReceiveProps();
   }

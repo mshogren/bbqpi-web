@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class TargetSensorComponent extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { handleComponentMount } = this.props;
     handleComponentMount();
   }
