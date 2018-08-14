@@ -12,10 +12,9 @@ module.exports = {
     "prettier"
   ],
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 2018,
     "ecmaFeatures": {
       "impliedStrict": true,
-      "experimentalObjectRestSpread": true,
       "jsx": true
     },
     "sourceType": "module"
@@ -47,13 +46,6 @@ module.exports = {
       { "extensions": [
         ".js",
         ".jsx"]
-      }
-    ],
-    "jsx-a11y/anchor-is-valid": [
-      "error",
-      {
-        "components": [ "Link" ],
-        "specialLink": [ "to" ]
       }
     ],
   }

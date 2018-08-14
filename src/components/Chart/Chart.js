@@ -18,7 +18,8 @@ class Chart extends Component {
   }
 
   componentDidMount() {
-    const channel = Number(this.props.match.params.channel);
+    const { match } = this.props;
+    const channel = Number(match.params.channel);
 
     const initialRef = getBaseRef(this.props)
       .child('state')
@@ -47,8 +48,9 @@ class Chart extends Component {
         }
       });
 
+      const { data } = this.state;
       this.setState({
-        data: [...this.state.data, ...rows],
+        data: [...data, ...rows],
         maxTime,
       });
 
@@ -68,10 +70,7 @@ class Chart extends Component {
           lastTargetTemperature = targetTemperature2;
           const time2 = new Date(timestamp2);
           this.setState({
-            data: [
-              ...this.state.data,
-              [time2, currentTemperature2, targetTemperature2],
-            ],
+            data: [...data, [time2, currentTemperature2, targetTemperature2]],
             maxTime,
           });
         }
@@ -84,19 +83,22 @@ class Chart extends Component {
   }
 
   render() {
-    if (this.state.data.length <= 0) {
+    const { alarmSensors, history, match } = this.props;
+    const { data, maxTime } = this.state;
+
+    if (data.length <= 0) {
       return <div />;
     }
 
     let title = 'Grill Temperature';
-    const channel = Number(this.props.match.params.channel);
+    const channel = Number(match.params.channel);
 
-    if (this.props.alarmSensors) {
-      const sensorKey = Object.keys(this.props.alarmSensors).find(
-        (key) => this.props.alarmSensors[key].channel === channel
+    if (alarmSensors) {
+      const sensorKey = Object.keys(alarmSensors).find(
+        (key) => alarmSensors[key].channel === channel
       );
 
-      if (sensorKey) title = this.props.alarmSensors[sensorKey].name;
+      if (sensorKey) title = alarmSensors[sensorKey].name;
     }
 
     const chartProps = {
@@ -107,7 +109,7 @@ class Chart extends Component {
         { type: 'number', label: 'Current Temperature' },
         { type: 'number', label: 'Target Temperature' },
       ],
-      rows: this.state.data,
+      rows: data,
       options: {
         titlePosition: 'none',
         legend: 'none',
@@ -115,8 +117,8 @@ class Chart extends Component {
           title: 'Time',
           format: 'HH:mm',
           viewWindow: {
-            min: new Date(this.state.maxTime - 1000 * 60 * 60 * 2),
-            max: new Date(this.state.maxTime),
+            min: new Date(maxTime - 1000 * 60 * 60 * 2),
+            max: new Date(maxTime),
           },
         },
         vAxis: { title: '°F', minValue: 0, maxValue: 225 },
@@ -125,7 +127,6 @@ class Chart extends Component {
       height: '400px',
     };
 
-    const { alarmSensors } = this.props;
     const isSensorSetupOnChannel =
       channel === 0 ||
       (alarmSensors &&
@@ -140,7 +141,7 @@ class Chart extends Component {
             <h5>{title}</h5>
           </Col>
           <Col xs={1}>
-            <Close handleClick={this.props.history.goBack} />
+            <Close handleClick={history.goBack} />
           </Col>
         </Row>
         <Row>

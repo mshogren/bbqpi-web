@@ -89,7 +89,10 @@ class AlarmSensorComponent extends Component {
 
     const inlineEditor = (
       <span>
-        <span style={{ color: '#ccc' }}>{label} </span>
+        <span style={{ color: '#ccc' }}>
+          {label}
+          &nbsp;
+        </span>
         <InlineEditor {...inlineEditorProps} />
       </span>
     );

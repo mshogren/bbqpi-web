@@ -23,7 +23,7 @@ const Thermometer = function Thermometer(props) {
   const color = '#abe2fb';
 
   return (
-    <button style={buttonStyle} onClick={handleClick}>
+    <button type="button" style={buttonStyle} onClick={handleClick}>
       <svg
         style={svgStyle}
         xmlns="http://www.w3.org/2000/svg"

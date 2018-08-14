@@ -23,7 +23,7 @@ const Bell = function Bell(props) {
   const color = on ? '#abe2fb' : '#e9e9e9';
 
   return (
-    <button style={buttonStyle} onClick={handleClick}>
+    <button type="button" style={buttonStyle} onClick={handleClick}>
       <svg
         style={svgStyle}
         xmlns="http://www.w3.org/2000/svg"

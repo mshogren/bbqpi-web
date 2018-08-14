@@ -1,22 +1,19 @@
 import { loadDeviceKey, saveDeviceKey } from './localStorageActions';
 
-window.localStorage = jest.fn();
-window.localStorage.getItem = jest.fn();
-
 test('loadDeviceKey returns the device key from local storage', () => {
-  window.localStorage.getItem.mockReturnValueOnce('deviceKey');
+  localStorage.getItem.mockReturnValueOnce('deviceKey');
 
   expect(loadDeviceKey()).toEqual('deviceKey');
 });
 
 test('loadDeviceKey returns undefined if the device key is null', () => {
-  window.localStorage.getItem.mockReturnValueOnce(null);
+  localStorage.getItem.mockReturnValueOnce(null);
 
   expect(loadDeviceKey()).not.toBeDefined();
 });
 
 test('loadDeviceKey returns undefined if there is an exception', () => {
-  window.localStorage.getItem.mockImplementationOnce(() => {
+  localStorage.getItem.mockImplementationOnce(() => {
     throw new Error('error');
   });
 
@@ -30,14 +27,9 @@ test('saveDeviceKey writes to local storage if device key is defined', () => {
     },
   };
 
-  window.localStorage.setItem = jest.fn();
-
   saveDeviceKey(state);
 
-  expect(window.localStorage.setItem).toHaveBeenCalledWith(
-    'deviceKey',
-    'selected'
-  );
+  expect(localStorage.setItem).toHaveBeenCalledWith('deviceKey', 'selected');
 });
 
 test('saveDeviceKey does nothing if device key is undefined', () => {
@@ -47,11 +39,11 @@ test('saveDeviceKey does nothing if device key is undefined', () => {
     },
   };
 
-  window.localStorage.setItem = jest.fn();
+  localStorage.setItem = jest.fn();
 
   saveDeviceKey(state);
 
-  expect(window.localStorage.setItem).not.toHaveBeenCalled();
+  expect(localStorage.setItem).not.toHaveBeenCalled();
 });
 
 test('saveDeviceKey ignores exceptions', () => {
@@ -61,14 +53,11 @@ test('saveDeviceKey ignores exceptions', () => {
     },
   };
 
-  window.localStorage.setItem = jest.fn(() => {
+  localStorage.setItem = jest.fn(() => {
     throw new Error('error');
   });
 
   saveDeviceKey(state);
 
-  expect(window.localStorage.setItem).toHaveBeenCalledWith(
-    'deviceKey',
-    'selected'
-  );
+  expect(localStorage.setItem).toHaveBeenCalledWith('deviceKey', 'selected');
 });

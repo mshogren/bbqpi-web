@@ -4,7 +4,8 @@ import { RIEInput } from '@attently/riek';
 
 class InlineEditor extends Component {
   shouldComponentUpdate(nextProps) {
-    return nextProps.value !== this.props.value;
+    const { value } = this.props;
+    return nextProps.value !== value;
   }
 
   render() {

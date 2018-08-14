@@ -21,7 +21,7 @@ const Fan = function Fan(props) {
   const color = on ? '#abe2fb' : '#e9e9e9';
 
   return (
-    <button style={buttonStyle}>
+    <button type="button" style={buttonStyle}>
       <svg
         className="Fan"
         style={imgStyle}

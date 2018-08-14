@@ -13,7 +13,9 @@ const SliderHandle = function SliderHandle(props) {
 
   return (
     <div className="my-rc-slider-handle" style={handleStyle}>
-      {value}°F<Handle value={value} />
+      {value}
+      °F
+      <Handle value={value} />
     </div>
   );
 };
