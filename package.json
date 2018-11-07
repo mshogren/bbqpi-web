@@ -51,8 +51,6 @@
     "analyze": "source-map-explorer build/static/js/main.*",
     "jest": "react-scripts testi --env=node",
     "posttest": "eslint src",
-    "commitmsg": "commitlint -e $GIT_PARAMS",
-    "precommit": "lint-staged",
     "eject": "react-scripts eject",
     "semantic-release": "semantic-release"
   },
@@ -96,5 +94,11 @@
       "not op_mini all",
       "ie 11"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
   }
 }
