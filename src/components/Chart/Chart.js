@@ -14,6 +14,7 @@ class Chart extends Component {
     super(props);
     this.state = {
       data: [],
+      maxTime: new Date(),
     };
   }
 
@@ -48,11 +49,10 @@ class Chart extends Component {
         }
       });
 
-      const { data } = this.state;
-      this.setState({
-        data: [...data, ...rows],
+      this.setState((prevState) => ({
+        data: [...prevState.data, ...rows],
         maxTime,
-      });
+      }));
 
       this.queryRef = initialRef.startAt(channel, maxKey).endAt(channel);
 
@@ -69,10 +69,14 @@ class Chart extends Component {
           maxTime = timestamp2;
           lastTargetTemperature = targetTemperature2;
           const time2 = new Date(timestamp2);
-          this.setState({
-            data: [...data, [time2, currentTemperature2, targetTemperature2]],
+
+          this.setState((prevState) => ({
+            data: [
+              ...prevState.data,
+              [time2, currentTemperature2, targetTemperature2],
+            ],
             maxTime,
-          });
+          }));
         }
       });
     });
@@ -85,10 +89,6 @@ class Chart extends Component {
   render() {
     const { alarmSensors, history, match } = this.props;
     const { data, maxTime } = this.state;
-
-    if (data.length <= 0) {
-      return <div />;
-    }
 
     let title = 'Grill Temperature';
     const channel = Number(match.params.channel);
