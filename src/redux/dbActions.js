@@ -92,7 +92,10 @@ export const removeSubscription = (subscription) => (dispatch, getState) => {
 
 export const reorderSensors = (oldIndex, newIndex) => (dispatch, getState) => {
   const state = getState();
-  const keys = Object.keys(state.alarmSensors);
+  const { alarmSensors } = state;
+  const keys = Object.keys(alarmSensors);
+
+  keys.sort((a, b) => alarmSensors[a].order - alarmSensors[b].order);
 
   const updates = {};
   keys.forEach((key, index) => {
