@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
 import { handleError } from './uiActions';
+// eslint-disable-next-line import/no-cycle
 import { processSubscriptions, getSubscriptionId } from './subscriptionActions';
 
 export const getDeviceRef = (state) =>

@@ -1,4 +1,5 @@
 import { handleError } from './uiActions';
+// eslint-disable-next-line import/no-cycle
 import { addSubscription, removeSubscription } from './dbActions';
 
 const convertArrayBufferToHexaDecimal = (buffer) => {
