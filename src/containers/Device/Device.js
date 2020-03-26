@@ -40,14 +40,6 @@ class Device extends Component {
       handleClick,
     } = this.props;
 
-    const dialogProps = {
-      isDialogOpen,
-      selectedDevice,
-      availableDevices,
-      handleToggle,
-      handleClick,
-    };
-
     let Display = <div />;
 
     if (selectedDevice) {
@@ -62,7 +54,13 @@ class Device extends Component {
     return (
       <div>
         {Display}
-        <DeviceDialog {...dialogProps} />
+        <DeviceDialog
+          isDialogOpen={isDialogOpen}
+          selectedDevice={selectedDevice}
+          availableDevices={availableDevices}
+          handleToggle={handleToggle}
+          handleClick={handleClick}
+        />
       </div>
     );
   }
@@ -82,7 +80,4 @@ Device.defaultProps = {
   availableDevices: undefined,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Device);
+export default connect(mapStateToProps, mapDispatchToProps)(Device);

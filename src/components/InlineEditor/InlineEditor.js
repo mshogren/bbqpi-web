@@ -9,12 +9,16 @@ class InlineEditor extends Component {
   }
 
   render() {
-    return <RIEInput {...this.props} />;
+    const { propName, value, change } = this.props;
+
+    return <RIEInput propName={propName} value={value} change={change} />;
   }
 }
 
 InlineEditor.propTypes = {
+  propName: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
+  change: PropTypes.func.isRequired,
 };
 
 export default InlineEditor;

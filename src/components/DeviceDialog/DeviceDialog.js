@@ -38,17 +38,14 @@ const DeviceDialog = function DeviceDialog(props) {
   if (selectedDevice) handleToggleFinal = handleToggle;
 
   const buttons = deviceKeys.map((deviceKey) => {
-    const buttonProps = {
-      key: deviceKey,
-      onClick: () => {
-        handleClick(deviceKey);
-        handleToggle();
-      },
-      active: deviceKey === selectedDevice,
+    const onClick = () => {
+      handleClick(deviceKey);
+      handleToggle();
     };
+    const active = deviceKey === selectedDevice;
 
     return (
-      <Button {...buttonProps}>
+      <Button key={deviceKey} onClick={onClick} active={active}>
         {availableDevices[deviceKey].name || 'New Device'}
       </Button>
     );

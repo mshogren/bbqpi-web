@@ -101,30 +101,24 @@ class Chart extends Component {
       if (sensorKey) title = alarmSensors[sensorKey].name;
     }
 
-    const chartProps = {
-      // chartPackages: ['corechart', 'line'],
-      chartType: 'LineChart',
-      columns: [
-        { type: 'datetime', label: 'Time' },
-        { type: 'number', label: 'Current Temperature' },
-        { type: 'number', label: 'Target Temperature' },
-      ],
-      rows: data,
-      options: {
-        titlePosition: 'none',
-        legend: 'none',
-        hAxis: {
-          title: 'Time',
-          format: 'HH:mm',
-          viewWindow: {
-            min: new Date(maxTime - 1000 * 60 * 60 * 2),
-            max: new Date(maxTime),
-          },
+    const columns = [
+      { type: 'datetime', label: 'Time' },
+      { type: 'number', label: 'Current Temperature' },
+      { type: 'number', label: 'Target Temperature' },
+    ];
+
+    const options = {
+      titlePosition: 'none',
+      legend: 'none',
+      hAxis: {
+        title: 'Time',
+        format: 'HH:mm',
+        viewWindow: {
+          min: new Date(maxTime - 1000 * 60 * 60 * 2),
+          max: new Date(maxTime),
         },
-        vAxis: { title: '°F', minValue: 0, maxValue: 225 },
       },
-      width: '100%',
-      height: '400px',
+      vAxis: { title: '°F', minValue: 0, maxValue: 225 },
     };
 
     const isSensorSetupOnChannel =
@@ -145,7 +139,14 @@ class Chart extends Component {
           </Col>
         </Row>
         <Row>
-          <ChartComponent {...chartProps} />
+          <ChartComponent
+            chartType="LineChart"
+            columns={columns}
+            rows={data}
+            options={options}
+            width="100%"
+            height="400px"
+          />
         </Row>
       </Container>
     ) : (

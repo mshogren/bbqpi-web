@@ -29,7 +29,8 @@ class App extends Component {
     handleComponentMount();
   }
 
-  componentDidUpdate() {
+  /* eslint camelcase: "warn" */
+  UNSAFE_componentWillReceiveProps() {
     const { ready, handleComponentWillReceiveProps } = this.props;
     if (!ready) handleComponentWillReceiveProps();
   }
@@ -56,7 +57,4 @@ App.propTypes = {
   handleComponentWillReceiveProps: PropTypes.func.isRequired,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

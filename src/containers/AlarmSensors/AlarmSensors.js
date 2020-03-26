@@ -67,7 +67,11 @@ class AlarmSensorsComponent extends Component {
       );
 
       const sensors = sensorIds.map((key) => (
-        <AlarmSensor sensorId={key} {...alarmSensors[key]} />
+        <AlarmSensor
+          sensorId={key}
+          name={alarmSensors[key].name}
+          channel={alarmSensors[key].channel}
+        />
       ));
 
       const addButton =
@@ -81,13 +85,6 @@ class AlarmSensorsComponent extends Component {
         (key) => alarmSensors[key].channel
       );
 
-      const dialogProps = {
-        isDialogOpen,
-        availableChannels,
-        handleToggle: handleDialogToggle,
-        handleClick: handleDialogClick,
-      };
-
       return (
         <div>
           <SortableList
@@ -96,7 +93,12 @@ class AlarmSensorsComponent extends Component {
             onSortEnd={handleReorder}
           />
           {addButton}
-          <SensorDialog {...dialogProps} />
+          <SensorDialog
+            isDialogOpen={isDialogOpen}
+            availableChannels={availableChannels}
+            handleToggle={handleDialogToggle}
+            handleClick={handleDialogClick}
+          />
         </div>
       );
     }

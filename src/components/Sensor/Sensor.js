@@ -11,23 +11,12 @@ const Sensor = function Sensor(props) {
     cornerIcon,
     icon,
     channel,
+    max,
     currentTemperature,
     setTemperature,
     handleChange,
     sliderDisabled,
   } = props;
-
-  const currentSliderProps = {
-    ...props,
-    value: currentTemperature,
-  };
-
-  const targetSliderProps = {
-    ...props,
-    defaultValue: setTemperature,
-    disabled: sliderDisabled,
-    onAfterChange: handleChange,
-  };
 
   const linkTo = `/chart/${channel}`;
 
@@ -46,13 +35,18 @@ const Sensor = function Sensor(props) {
           </Link>
         </Col>
         <Col xs={9}>
-          <TemperatureSlider {...currentSliderProps} />
+          <TemperatureSlider max={max} value={currentTemperature} />
         </Col>
       </Row>
       <Row style={{ paddingBottom: '0.5em' }}>
         <Col xs={2}>{icon}</Col>
         <Col xs={9}>
-          <TemperatureSlider {...targetSliderProps} />
+          <TemperatureSlider
+            max={max}
+            defaultValue={setTemperature}
+            disabled={sliderDisabled}
+            onAfterChange={handleChange}
+          />
         </Col>
       </Row>
     </Container>
@@ -64,6 +58,7 @@ Sensor.propTypes = {
   cornerIcon: PropTypes.element,
   icon: PropTypes.element,
   channel: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
   currentTemperature: PropTypes.number,
   setTemperature: PropTypes.number,
   handleChange: PropTypes.func.isRequired,

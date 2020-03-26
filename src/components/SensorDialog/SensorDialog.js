@@ -17,17 +17,14 @@ const SensorDialog = function SensorDialog(props) {
   const buttons = [1, 2, 3].map((i) => {
     const label = String.fromCharCode(9311 + i);
 
-    const buttonProps = {
-      key: i,
-      disabled: availableChannels.indexOf(i) >= 0,
-      onClick: () => {
-        handleClick(i);
-        handleToggle();
-      },
+    const disabled = availableChannels.indexOf(i) >= 0;
+    const onClick = () => {
+      handleClick(i);
+      handleToggle();
     };
 
     return (
-      <Button {...buttonProps}>
+      <Button key={i} disabled={disabled} onClick={onClick}>
         <h5>{label}</h5>
       </Button>
     );

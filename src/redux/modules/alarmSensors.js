@@ -63,9 +63,7 @@ export const removeSensor = (key) => ({
 
 export const listenForChanges = () => (dispatch, getState) => {
   const state = getState();
-  const ref = getBaseRef(state)
-    .child('sensor')
-    .orderByChild('order');
+  const ref = getBaseRef(state).child('sensor').orderByChild('order');
 
   ref.on('child_added', (snapshot) => {
     dispatch(addSensor(snapshot.key, snapshot.val()));

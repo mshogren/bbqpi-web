@@ -20,10 +20,7 @@ const mapStateToProps = (state) => {
     } = state.currentSensorState.grillSensor;
 
     return {
-      title: 'Grill Temperature',
-      icon: <Fan level={fanLevel} />,
-      channel: 0,
-      max: 450,
+      fanLevel,
       currentTemperature,
       setTemperature: targetTemperature,
     };
@@ -59,23 +56,51 @@ class TargetSensorComponent extends Component {
   }
 
   render() {
-    const { loading, handleToggle } = this.props;
+    const {
+      loading,
+      fanLevel,
+      currentTemperature,
+      setTemperature,
+      handleToggle,
+      handleChange,
+    } = this.props;
 
+    const icon = <Fan level={fanLevel} />;
     const gear = <Gear handleClick={handleToggle} />;
 
-    return loading ? <div /> : <Sensor {...this.props} cornerIcon={gear} />;
+    return loading ? (
+      <div />
+    ) : (
+      <Sensor
+        title="Grill Temperature"
+        icon={icon}
+        cornerIcon={gear}
+        channel={0}
+        max={450}
+        currentTemperature={currentTemperature}
+        setTemperature={setTemperature}
+        handleChange={handleChange}
+      />
+    );
   }
 }
 
 TargetSensorComponent.propTypes = {
   loading: PropTypes.bool,
+  fanLevel: PropTypes.number,
+  currentTemperature: PropTypes.number,
+  setTemperature: PropTypes.number,
   handleComponentMount: PropTypes.func.isRequired,
   handleComponentUnmount: PropTypes.func.isRequired,
   handleToggle: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 TargetSensorComponent.defaultProps = {
   loading: false,
+  fanLevel: undefined,
+  currentTemperature: undefined,
+  setTemperature: undefined,
 };
 
 const TargetSensor = connect(

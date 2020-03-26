@@ -25,7 +25,6 @@ const mapStateToProps = (state, ownProps) => {
     const { currentTemperature } = currentSensorState[sensorId];
 
     return {
-      max: 225,
       currentTemperature,
       setTemperature: alarmTemperature,
       sliderDisabled: !alarmEnabled,
@@ -69,21 +68,18 @@ class AlarmSensorComponent extends Component {
       loading,
       name,
       channel,
+      currentTemperature,
+      setTemperature,
       sliderDisabled,
       handleClick,
       handleEdit,
+      handleChange,
       handleClose,
     } = this.props;
 
     if (loading) {
       return <div />;
     }
-
-    const inlineEditorProps = {
-      value: name,
-      propName: 'name',
-      change: handleEdit,
-    };
 
     const label = String.fromCharCode(9311 + channel);
 
@@ -93,27 +89,26 @@ class AlarmSensorComponent extends Component {
           {label}
           &nbsp;
         </span>
-        <InlineEditor {...inlineEditorProps} />
+        <InlineEditor propName="name" value={name} change={handleEdit} />
       </span>
     );
 
-    const bellProps = {
-      on: !sliderDisabled,
-      handleClick,
-    };
-
-    const bell = <Bell {...bellProps} />;
+    const bell = <Bell on={!sliderDisabled} handleClick={handleClick} />;
 
     const close = <Close handleClick={handleClose} />;
 
-    const sensorProps = {
-      ...this.props,
-      title: inlineEditor,
-      cornerIcon: close,
-      icon: bell,
-    };
-
-    return <Sensor {...sensorProps} />;
+    return (
+      <Sensor
+        title={inlineEditor}
+        icon={bell}
+        cornerIcon={close}
+        channel={channel}
+        max={225}
+        currentTemperature={currentTemperature}
+        setTemperature={setTemperature}
+        handleChange={handleChange}
+      />
+    );
   }
 }
 
@@ -121,16 +116,21 @@ AlarmSensorComponent.propTypes = {
   loading: PropTypes.bool,
   name: PropTypes.string.isRequired,
   channel: PropTypes.number.isRequired,
+  currentTemperature: PropTypes.number,
+  setTemperature: PropTypes.number,
   sliderDisabled: PropTypes.bool,
   handleComponentMount: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
   handleEdit: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 AlarmSensorComponent.defaultProps = {
   loading: false,
   sliderDisabled: false,
+  currentTemperature: undefined,
+  setTemperature: undefined,
 };
 
 export default connect(
