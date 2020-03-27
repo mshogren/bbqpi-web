@@ -21,4 +21,6 @@ before_deploy:
 - npm --prefix ./functions install
 deploy:
   skip_cleanup: true
+  cleanup: false
   provider: firebase
+  edge: true
