@@ -1,27 +1,26 @@
----
 dist: trusty
 sudo: false
 language: node_js
 node_js:
-  - '10'
+- '10'
 cache:
   directories:
-    - "$HOME/.npm"
+  - "$HOME/.npm"
 before_install: git fetch --unshallow
 script:
-  - ./node_modules/.bin/commitlint --from="$TRAVIS_BRANCH" --to="$TRAVIS_COMMIT"
-  - ./node_modules/.bin/commitlint --from=$TRAVIS_COMMIT~1
-  - SKIP_PREFLIGHT_CHECK=true npm test
-  - SKIP_PREFLIGHT_CHECK=true npm run build
+- ./node_modules/.bin/commitlint --from="$TRAVIS_BRANCH" --to="$TRAVIS_COMMIT"
+- "./node_modules/.bin/commitlint --from=$TRAVIS_COMMIT~1"
+- SKIP_PREFLIGHT_CHECK=true npm test
+- SKIP_PREFLIGHT_CHECK=true npm run build
 after_success:
-  - npm run semantic-release
+- npm run semantic-release
 branches:
   except:
-    - /^v\d+\.\d+\.\d+$/
+  - "/^v\\d+\\.\\d+\\.\\d+$/"
 before_deploy:
-  - npm --prefix ./functions install
+- npm --prefix ./functions install
 deploy:
   skip_cleanup: true
   provider: firebase
   token:
-    secure: MiItT0e1DSc52us29fvt5ISKnVPZc5QVdIHfkcX4Yq6W6OD4JMG2MLVwuld0Dl9N9PjSqPmAzgc5MEb5IGb0J53dG8tRPWPYtPEHpKnMP1LLeFEFUuCiSq3opqjIbFlHpdY5GxxewoI7iE+vYfNXwneoQWiUTVbNPc6nSbEGhV4mRmIyHX/Am2WvpI5Ql4udxnXVsG0NxomU2FLMt5s/ew1m8lrIS1X4QLa9hA19PUp9lvOMCOJXQAvdc5bL3PU2jGmZ9YnzDV0g5zuiaebezHeRwQ2scwCJvtPABWVTYmhqyOMdSlBSkA2goM3tv5BGM0m5scNz0X67BQbdIjtkY5h+z4E6V/1vL80+4aouj7PxuTMxTQ4odh+q3Q5+1L6kLHbGGri2JUxuho6kSScdiRcQEapAirW6YYbo8y0bm93hmCi7Uu7e4qG9XRshyrQgOLvozWHTJIP6WFQC5rjrqEZ5aX9XjMQ6p2J+t7HcFhjTAiHb5ykGKO1qn5XUIe1HOQTss9S/qNSpPFKkTztXlv6fhdeSXBhDQXz5kj5wulA3gGZKk970p2GYdQyIHWL4aEtYcejrF/flsblTkMLXCstc4JMK4rbLbLAWCSPPNVBAFxj8SI6McXQUpPMKi2dkF8atp281yN7dkiXBuJGnq+ZUVlh6d3w9GLjnJgkeecM=
+    secure: k+xZMOK/hAAjsa87w0Wa0I3ipZgwUuR2YXZ+kYPZ3BGsSlSU2CqarVRZGYF7M9d+w6S8xK6MgxAs16uB4n1FAFUdAF0F+71mnVizl4I0OVXse6f/38rgIAf2OOOD29Cqg8pYdY2b2JGqpArRi5YCMpXJg7AseducEcSXbJW+8U/g8oNC7LzkTuhyKrvnVFTkH+0Gk4acYTi5z3QBbJCBik/5l5TLl7ExTgsueHzZGnQjG4xCReBTdYtDUsMWM0JvB/uZwP9nOI1DAqgBP+Yzk8hoKDYDreGG9oph1n6V008JAG2QCqRD58b9popXaBh8re2++p1NV4LXUNYEwBOLgeZcuPO67qc73iHH8tRjFQfDnpcxDEXICzeK3gUYgl6lyxgMshz8TdIPkLR6o6SnJ5uP/H4G8T4zEeU/0lcrXKIb1WJMjFh7M592vO/KkTcJQuekEyLYVlfE3oun8HMLVeH2ftx0YdyMrG6y4HY1/JIKNKpz5IfR6Tk3G2IDtvWk0zTxkDXGyswgzBixFIadpWAIaTefYGS0tbfVUK6hTQQtIjxI0CAtbNfyUOsxvzAC7/h09kEskMQ2PNNWE0+M51glzes0O1iVG/13eJgZY6P/LEyDbnjWgkE07dHt/sKzzFm8SU6QyjeKoJJsfsqG2ZoyNGK8uTKjx3DdS0knu+I=
