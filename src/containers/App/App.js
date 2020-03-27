@@ -29,7 +29,7 @@ class App extends Component {
     handleComponentMount();
   }
 
-  /* eslint camelcase: "warn" */
+  /* eslint camelcase: "off" */
   UNSAFE_componentWillReceiveProps() {
     const { ready, handleComponentWillReceiveProps } = this.props;
     if (!ready) handleComponentWillReceiveProps();
