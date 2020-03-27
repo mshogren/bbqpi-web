@@ -31,7 +31,7 @@
   "dependencies": {
     "@attently/riek": "^2.0.1",
     "bootstrap": "^4.4.1",
-    "firebase": "^7.12.0",
+    "firebase": "^7.13.1",
     "prop-types": "^15.7.2",
     "rc-slider": "^9.2.4",
     "react": "^16.13.1",
