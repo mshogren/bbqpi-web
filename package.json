@@ -12,7 +12,7 @@
     "@semantic-release/git": "^9.0.0",
     "babel-preset-airbnb": "^4.4.0",
     "codecov": "^3.6.5",
-    "cz-conventional-changelog": "^3.1.0",
+    "cz-conventional-changelog": "^3.1.1",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.10.1",
